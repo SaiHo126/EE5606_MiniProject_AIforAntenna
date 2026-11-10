@@ -1,0 +1,48 @@
+{
+  "settings": {
+    "population_size": 60,
+    "generations": 150,
+    "tournament_size": 3,
+    "crossover_probability": 0.9,
+    "mutation_probability": 0.1,
+    "mutation_scale": 0.05,
+    "elite_count": 2,
+    "seed": 2
+  },
+  "bounds_mm": [
+    [
+      25.0,
+      50.0
+    ],
+    [
+      25.0,
+      45.0
+    ],
+    [
+      1.0,
+      5.0
+    ]
+  ],
+  "minimum_width_length_ratio": 1.2,
+  "target_frequency_ghz": 2.4,
+  "penalty_weight": 1.0,
+  "frequency_tolerance_mhz": 10.0,
+  "best_design_mm": [
+    35.613359662808,
+    29.67779971900667,
+    1.0
+  ],
+  "volume_mm3": 1056.9261553937667,
+  "width_length_ratio": 1.2,
+  "frequency_ghz": 2.4000000010337152,
+  "frequency_error_mhz": 1.0337153355521878e-06,
+  "best_score": 0.09394899202127177,
+  "objective_evaluations": 9060,
+  "elapsed_seconds": 0.6769119999371469,
+  "geometry_feasible": true,
+  "frequency_feasible": true,
+  "model_reference_passed": true,
+  "model_reference_actual_ghz": 2.3575485421095275,
+  "model_reference_expected_ghz": 2.3575485421095275,
+  "success": true
+}
