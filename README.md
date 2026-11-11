@@ -1,7 +1,5 @@
 ﻿# EE5606\_MiniProject\_AIforAntenna
 # Ciallo～(∠・ω< )⌒☆
-<iframe
-  src="./EE5606_mini_project.pdf"
-  width="100%"
-  height="600">
-</iframe>
+
+## Project Instructions
+[Open the EE5606 project PDF](./EE5606_mini_project.pdf)
