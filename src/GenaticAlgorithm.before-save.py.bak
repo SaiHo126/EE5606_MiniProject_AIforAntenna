@@ -1,0 +1,123 @@
+from logging import config
+from typing import Callable
+
+from PatchFormula import RMA
+import numpy as np
+import random as rd
+crossoverRate = 0.8
+mutationRate = 0.2
+populationSize = 6
+chomosomes = np.array([])
+AntennaBounds_mm = np.array([[25.0, 50.0], [25.0, 45.0], [1.0, 5.0]])
+
+class GeneticAlgorithm:
+    def __init__(self, Bounds: np.ndarray) -> None:
+        self.Bounds = Bounds
+        self.objective = RMA.fitness
+                
+    class config:
+        populationSize: int = 3
+        generations: int = 100
+        tournamentSize: int = 2
+        corssoverRate: float = 0.8
+        mutationRate: float = 0.2
+        stepSize: float = 0.1
+        eliteCount: int = 1
+        seed: int = 5
+        def __init__(self, populationSize: int, generations: int, tournamentSize: int, crossoverRate: float, mutationRate: float, stepSize: float, eliteCount: int, seed: int):
+            self.populationSize = populationSize
+            self.generations = generations
+            self.tournamentSize = tournamentSize
+            self.crossoverRate = crossoverRate
+            self.mutationRate = mutationRate
+            self.stepSize = stepSize
+            self.eliteCount = eliteCount
+            self.seed = seed    
+    class results:
+        bestDesign_mm: RMA
+        bestFitness: float
+        bestScoreHistory: list[float]
+        iterativeNumber: int
+        elpasedTime: float
+    def initializePopulation(self, config):
+        chomosomes = []
+        rng = rd.Random(config.seed)
+        for _ in range(config.populationSize):
+            width_mm = rng.uniform(AntennaBounds_mm[0,0], AntennaBounds_mm[0,1])
+            length_mm = rng.uniform(AntennaBounds_mm[1,0], AntennaBounds_mm[1,1])
+            thickness_mm = rng.uniform(AntennaBounds_mm[2,0], AntennaBounds_mm[2,1])
+            antenna = RMA(width_mm, length_mm, thickness_mm)
+            antenna.geometryFix()
+            chomosomes = np.append(chomosomes, antenna)
+        return chomosomes
+    def select_parent(self, population: np.ndarray, config, frequencyPlenalty: float = 1.0) -> RMA:
+        rng = np.random.default_rng(config.seed)
+        if len(population) == 0:
+            raise ValueError("Cannot select a parent from an empty population.")
+        if not 1 <= config.tournamentSize <= len(population):
+            raise ValueError("tournamentSize must be between 1 and the population size.")
+        # Sample distinct competitors within this tournament.
+        competitors = rng.choice(len(population), size=config.tournamentSize, replace=False)
+        candidates = []
+        for index in competitors:
+            antenna = population[index]
+            # Rebuild from current dimensions: geometryFix may have changed them
+            # without recalculating the stored volume and resonance frequency.
+            candidates.append(RMA(antenna.width_mm, antenna.length_mm, antenna.thickness_mm))
+        # self.objective is RMA.fitness; the new object also protects the original
+        # population from later changes to the selected parent.
+        return min(candidates, key=lambda antenna: self.objective(antenna, frequencyPlenalty))
+    def crossover(self, parent1: RMA, parent2: RMA, config:config) -> np.ndarray:
+        genes1 = np.array([parent1.width_mm, parent1.length_mm, parent1.thickness_mm])
+        genes2 = np.array([parent2.width_mm, parent2.length_mm, parent2.thickness_mm])
+        if rd.random(0,1) < config.crossoverRate:
+            alpha = rd.random(0,1)
+            child1_genes = alpha * genes1 + (1 - alpha) * genes2
+            child2_genes = alpha * genes2 + (1 - alpha) * genes1
+        else:
+            child1_genes = genes1
+            child2_genes = genes2
+        return np.array([RMA(*child1_genes), RMA(*child2_genes)])
+    def mutate(self, child: RMA, config, rng: np.random.Generator) -> RMA:
+        genes = np.array([
+            child.width_mm,
+            child.length_mm,
+            child.thickness_mm
+        ], dtype=float)
+
+        ranges = self.Bounds[:, 1] - self.Bounds[:, 0]
+
+        for i in range(len(genes)):
+            if rng.random() < config.mutationRate:
+                change_mm = rng.normal(
+                    loc=0.0,
+                    scale=config.stepSize * ranges[i]
+                )
+                genes[i] += change_mm
+
+        # Ensure positive dimensions within the allowed bounds.
+        genes = np.clip(genes, self.Bounds[:, 0], self.Bounds[:, 1])
+
+        mutated = RMA(*genes)
+        mutated.geometryFix()
+
+        # Refresh calculated properties after geometry repair.
+        return RMA(
+            mutated.width_mm,
+            mutated.length_mm,
+            mutated.thickness_mm
+        )
+        
+    
+    
+ga = GeneticAlgorithm(AntennaBounds_mm)
+a = ga.initializePopulation(Config)
+print(a[0].width_mm, a[0].length_mm, a[0].thickness_mm)
+print(a[1].width_mm, a[1].length_mm, a[1].thickness_mm)
+print(a[2].width_mm, a[2].length_mm, a[2].thickness_mm)
+print(ga.select_parent(a, Config).width_mm, ga.select_parent(a, Config).length_mm, ga.select_parent(a, Config).thickness_mm)
+# a = RMA(35.61335963,29.6777997, 1)
+# a.geometryFix()
+# print(a.width_mm, a.length_mm, a.thickness_mm)
+# print(a.ResonanceF_GHz)
+# print(a.fitness(1.0))
