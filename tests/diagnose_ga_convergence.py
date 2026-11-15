@@ -12,7 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.GenaticAlgorithm import AntennaBounds_mm, GeneticAlgorithm
+from GeneticAlgorithm import AntennaBounds_mm, GeneticAlgorithm
 
 
 OBSERVATION_GENERATIONS = 100

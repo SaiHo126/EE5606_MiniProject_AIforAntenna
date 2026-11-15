@@ -32,7 +32,7 @@ class GeneticAlgorithm:
         seed: int = 5
         terminationCondition: float = 0.01
         frequencyPenalty: float = 1.0
-        def __init__(self, populationSize: int, generationsMin: int, tournamentSize: int, crossoverRate: float, mutationRate: float, stepSize: float, eliteCount: int, seed: int):
+        def __init__(self, populationSize: int, generationsMin: int, tournamentSize: int, crossoverRate: float, mutationRate: float, stepSize: float, eliteCount: int, seed: int, terminationCondition :float, frequencyPenalty: float):
             self.populationSize = populationSize
             self.generationsMin = generationsMin
             self.tournamentSize = tournamentSize
@@ -41,6 +41,8 @@ class GeneticAlgorithm:
             self.stepSize = stepSize
             self.eliteCount = eliteCount
             self.seed = seed
+            self.terminationCondition = 0.01
+            self.frequencyPenalty = 1
     class results:
         bestDesign_mm: RMA
         bestFitness: float
@@ -75,9 +77,11 @@ class GeneticAlgorithm:
         # population from later changes to the selected parent.
         return min(candidates, key=lambda antenna: self.objective(antenna, frequencyPlenalty))
     def crossover(self, parent1: RMA, parent2: RMA, config:config) -> np.ndarray:
+        # setting genes to crossover
         genes1 = np.array([parent1.width_mm, parent1.length_mm, parent1.thickness_mm])
         genes2 = np.array([parent2.width_mm, parent2.length_mm, parent2.thickness_mm])
         if self.rng.random() < config.crossoverRate:
+            # determine if the crossover occurs
             alpha = self.rng.random()
             child1_genes = alpha * genes1 + (1 - alpha) * genes2
             child2_genes = alpha * genes2 + (1 - alpha) * genes1
@@ -86,16 +90,21 @@ class GeneticAlgorithm:
             child2_genes = genes2
         # Blending valid parents can round W/L just below 1.2.
         for genes in (child1_genes, child2_genes):
+            # crossover
             if genes[0] / genes[1] < 1.2:
                 genes[0] = np.nextafter(genes[0], np.inf)
         return np.array([RMA(*child1_genes), RMA(*child2_genes)])
     def mutate(self, child: RMA, config) -> RMA:
+        # define the genes for mutation
         genes = np.array([child.width_mm, child.length_mm, child.thickness_mm], dtype=float)
         ranges = self.Bounds[:, 1] - self.Bounds[:, 0]
         for i in range(len(genes)):
+            # check if mutation occurs
             if self.rng.random() < config.mutationRate:
                 change_mm = self.rng.normal(
-                    loc=0.0,
+                    # setting mean
+                    loc=0.0, 
+                    # setting variation
                     scale=config.stepSize * ranges[i]
                 )
                 genes[i] += change_mm
@@ -113,10 +122,12 @@ class GeneticAlgorithm:
         next_population = []
         seen = set()
         for i in order:
+            # check the population number
             if len(next_population) >= eliteNumber:
                 break
             elite = population[i]
             genes = (elite.width_mm, elite.length_mm, elite.thickness_mm)
+            # prevent same genes
             if genes not in seen:
                 next_population.append(RMA(*genes))
                 seen.add(genes)
@@ -174,20 +185,83 @@ class GeneticAlgorithm:
 
 
 if __name__ == "__main__":
-    config = GeneticAlgorithm.config(
-        populationSize=populationSize,
-        generationsMin=100,
-        tournamentSize=2,
-        crossoverRate=crossoverRate,
-        mutationRate=mutationRate,
-        stepSize=0.1,
-        eliteCount=1,
-        seed=5
+    
+    # Change this list to compare other random seeds.
+    seeds = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80]
+    fig, (convergence_ax, details_ax) = plt.subplots(
+        1, 2, figsize=(14, 6), gridspec_kw={"width_ratios": [2, 1]}
     )
-    results = GeneticAlgorithm(AntennaBounds_mm).run(config)
-    generations = range(len(results.bestScoreHistory))
-    plt.plot(generations, results.bestScoreHistory)
-    plt.xlabel("Generation")
-    plt.ylabel("Best Fitness")
-    plt.title("Genetic Algorithm convergence")
+    resultsBySeed = {}
+    curvesBySeed = {}
+    for seed in seeds:
+        # Keep all other settings the same for a fair comparison.
+        config = GeneticAlgorithm.config(
+            populationSize=populationSize,
+            generationsMin=100,
+            tournamentSize=2,
+            crossoverRate=crossoverRate,
+            mutationRate=mutationRate,
+            stepSize=0.1,
+            eliteCount=1,
+            seed=seed,
+            terminationCondition = 0.01,
+            frequencyPenalty = 10000
+            )
+        # A fresh instance starts an independent random sequence for each seed.
+        results = GeneticAlgorithm(AntennaBounds_mm, seed=config.seed).run(config)
+        resultsBySeed[seed] = results
+        # Each curve ends when that run meets the existing stopping condition.
+        generations = range(len(results.bestScoreHistory))
+        curvesBySeed[seed], = convergence_ax.plot(
+            generations, results.bestScoreHistory, label=f"Seed {seed}"
+        )
+
+    # Show the final design from the seed with the lowest fitness.
+    bestSeed = min(resultsBySeed, key=lambda seed: resultsBySeed[seed].bestFitness)
+    bestResult = resultsBySeed[bestSeed]
+    design = bestResult.bestDesign_mm
+    bestAntenna = RMA(design.width_mm, design.length_mm, design.thickness_mm)
+    frequencyError_MHz = abs(bestAntenna.ResonanceF_GHz - 2.4) * 1000
+
+    bestCurve = curvesBySeed[bestSeed]
+    bestCurve.set_linewidth(3)
+    bestCurve.set_label(f"Seed {bestSeed} (best)")
+    convergence_ax.plot(
+        bestResult.iterativeNumber, bestResult.bestFitness,
+        marker="*", markersize=14, color=bestCurve.get_color(), linestyle="None"
+    )
+    convergence_ax.set_xlabel("Generation")
+    convergence_ax.set_ylabel("Best Fitness (lower is better)")
+    convergence_ax.set_title("Genetic Algorithm convergence for different seeds")
+    convergence_ax.legend(ncol=2)
+    convergence_ax.grid(True, alpha=0.3)
+
+    details_ax.axis("off")
+    details_ax.set_title(f"Best result: seed {bestSeed}", fontweight="bold")
+    detailRows = [
+        ["Width W (mm)", f"{bestAntenna.width_mm:.6f}"],
+        ["Length L (mm)", f"{bestAntenna.length_mm:.6f}"],
+        ["Thickness h (mm)", f"{bestAntenna.thickness_mm:.6f}"],
+        ["Volume (mm^3)", f"{bestAntenna.volume_mm3:.3f}"],
+        ["Analytical f (GHz)", f"{bestAntenna.ResonanceF_GHz:.9f}"],
+        ["Target f (GHz)", "2.400000000"],
+        ["Abs. target error (MHz)", f"{frequencyError_MHz:.6f}"],
+        ["W / L (minimum 1.2)", f"{bestAntenna.width_mm / bestAntenna.length_mm:.6f}"],
+        ["Geometry check", "PASS" if bestAntenna.geometryCheck() else "FAIL"],
+        ["Best fitness", f"{bestResult.bestFitness:.8f}"],
+        ["Frequency penalty", f"{config.frequencyPenalty:g}"],
+        ["Generations", str(bestResult.iterativeNumber)],
+        ["Run time (s)", f"{bestResult.elpasedTime:.4f}"],
+    ]
+    detailsTable = details_ax.table(
+        cellText=detailRows, colLabels=["Quantity", "Value"],
+        colWidths=[0.60, 0.40], cellLoc="left", bbox=[0, 0.06, 1, 0.91]
+    )
+    detailsTable.auto_set_font_size(False)
+    detailsTable.set_fontsize(9)
+    details_ax.text(
+        0.5, 0.01, "Selected by lowest final fitness across seeds.",
+        ha="center", va="bottom", fontsize=9, transform=details_ax.transAxes
+    )
+    fig.tight_layout()
     plt.show()
