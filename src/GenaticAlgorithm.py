@@ -1,5 +1,8 @@
+from operator import index
+from unittest import result
 import numpy as np
-
+import matplotlib.pyplot as plt
+from time import perf_counter
 if __package__:
     from .PatchFormula import RMA
 else:
@@ -20,16 +23,18 @@ class GeneticAlgorithm:
 
     class config:
         populationSize: int = 3
-        generations: int = 100
+        generationsMin: int = 20
         tournamentSize: int = 2
         crossoverRate: float = 0.8
         mutationRate: float = 0.2
         stepSize: float = 0.1
         eliteCount: int = 1
         seed: int = 5
-        def __init__(self, populationSize: int, generations: int, tournamentSize: int, crossoverRate: float, mutationRate: float, stepSize: float, eliteCount: int, seed: int):
+        terminationCondition: float = 0.01
+        frequencyPenalty: float = 1.0
+        def __init__(self, populationSize: int, generationsMin: int, tournamentSize: int, crossoverRate: float, mutationRate: float, stepSize: float, eliteCount: int, seed: int):
             self.populationSize = populationSize
-            self.generations = generations
+            self.generationsMin = generationsMin
             self.tournamentSize = tournamentSize
             self.crossoverRate = crossoverRate
             self.mutationRate = mutationRate
@@ -42,7 +47,7 @@ class GeneticAlgorithm:
         bestScoreHistory: list[float]
         iterativeNumber: int
         elpasedTime: float
-    def initializePopulation(self, config):
+    def initializePopulation(self, config) -> np.ndarray:
         chomosomes = []
         for _ in range(config.populationSize):
             width_mm = self.rng.uniform(self.Bounds[0,0], self.Bounds[0,1])
@@ -135,25 +140,54 @@ class GeneticAlgorithm:
                 if len(next_population) == config.populationSize:
                     break
         return np.array(next_population)
+    def run(self, config: config) -> results:
+        results = self.results()
+        # 1.starting time and create initial population
+        started = perf_counter()
+        population = self.initializePopulation(config)
+        # 2.Score each antenna design point, lower score is better
+        # save the best design for elite selection and return
+        populationFitness = np.array([self.objective(antenna, config.frequencyPenalty) for antenna in population])
+        eliteGenes = population[np.argmin(populationFitness)]
+        bestFitness = np.min(populationFitness)
+        results.bestDesign_mm = RMA(eliteGenes.width_mm, eliteGenes.length_mm, eliteGenes.thickness_mm)
+        results.bestScoreHistory = [bestFitness]
+        results.iterativeNumber = 0
+        # Create next generation
+        fitnessChange = np.inf
+        while fitnessChange >= config.terminationCondition:
+            population =self.create_next_generation(population, config, config.eliteCount, config.frequencyPenalty)
+            populationFitness = np.array([self.objective(antenna, config.frequencyPenalty) for antenna in population])
+            eliteGenes = population[np.argmin(populationFitness)]
+            bestFitness = np.min(populationFitness)
+            results.bestDesign_mm = population[np.argmin(populationFitness)]
+            results.bestScoreHistory.append(bestFitness)
+            results.iterativeNumber += 1
+            if len(results.bestScoreHistory) > config.generationsMin:
+                fitnessChange = abs(results.bestScoreHistory[-1] - results.bestScoreHistory[-2])/abs(results.bestScoreHistory[-2])
+        results.elpasedTime = perf_counter() - started
+        results.bestFitness = bestFitness
+        return results
+
+        
+        
 
 
 if __name__ == "__main__":
-    Config = GeneticAlgorithm.config(
-        populationSize=3, generations=100, tournamentSize=2,
-        crossoverRate=0.8, mutationRate=0.2, stepSize=0.1, eliteCount=1, seed=5,
+    config = GeneticAlgorithm.config(
+        populationSize=populationSize,
+        generationsMin=100,
+        tournamentSize=2,
+        crossoverRate=crossoverRate,
+        mutationRate=mutationRate,
+        stepSize=0.1,
+        eliteCount=1,
+        seed=5
     )
-    ga = GeneticAlgorithm(AntennaBounds_mm, seed=Config.seed)
-    a = ga.initializePopulation(Config)
-    # print(a[0].width_mm, a[0].length_mm, a[0].thickness_mm)
-    # print(a[1].width_mm, a[1].length_mm, a[1].thickness_mm)
-    # print(a[2].width_mm, a[2].length_mm, a[2].thickness_mm)
-    # parent = ga.select_parent(a, Config)
-    # print(parent.width_mm, parent.length_mm, parent.thickness_mm)
-    ciallo = ga.create_next_generation(a, Config, eliteNumber=Config.eliteCount)
-    print(ciallo[1].width_mm, ciallo[1].length_mm, ciallo[1].thickness_mm)
-# a = RMA(35.61335963,29.6777997, 1)
-# a.geometryFix()
-# print(a.width_mm, a.length_mm, a.thickness_mm)
-# print(a.ResonanceF_GHz)
-# print(a.fitness(1.0))
-
+    results = GeneticAlgorithm(AntennaBounds_mm).run(config)
+    generations = range(len(results.bestScoreHistory))
+    plt.plot(generations, results.bestScoreHistory)
+    plt.xlabel("Generation")
+    plt.ylabel("Best Fitness")
+    plt.title("Genetic Algorithm convergence")
+    plt.show()

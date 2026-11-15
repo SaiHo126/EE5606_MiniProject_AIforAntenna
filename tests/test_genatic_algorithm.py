@@ -17,7 +17,7 @@ from src.PatchFormula import RMA
 def make_config(**changes):
     settings = dict(
         populationSize=9,
-        generations=6,
+        generationsMin=6,
         tournamentSize=3,
         crossoverRate=0.8,
         mutationRate=0.2,
@@ -242,7 +242,7 @@ class GeneticAlgorithmOperatorTests(unittest.TestCase):
         optimizer = GeneticAlgorithm(AntennaBounds_mm, seed=seed)
         population = optimizer.initializePopulation(config)
         history = [population_dimensions(population)]
-        for _ in range(config.generations):
+        for _ in range(config.generationsMin):
             before = [vars(antenna).copy() for antenna in population]
             best = min(population, key=lambda antenna: antenna.fitness(1.0))
             next_population = [RMA(*dimensions(best))]
@@ -274,6 +274,30 @@ class GeneticAlgorithmOperatorTests(unittest.TestCase):
         first = self.run_operator_generations(42, make_config(seed=1))
         second = self.run_operator_generations(42, make_config(seed=999))
         np.testing.assert_array_equal(first, second)
+
+    def test_run_solves_known_quadratic_and_records_consistent_history(self):
+        # A positive offset keeps relative changes defined; the minimum is 1.
+        target = np.array([38.0, 30.0, 1.6])
+        ranges = AntennaBounds_mm[:, 1] - AntennaBounds_mm[:, 0]
+        config = make_config(populationSize=30, generationsMin=100)
+        optimizer = GeneticAlgorithm(AntennaBounds_mm, seed=config.seed)
+        optimizer.objective = lambda antenna, penalty: 1.0 + float(
+            np.sum(((dimensions(antenna) - target) / ranges) ** 2)
+        )
+        result = optimizer.run(config)
+        self.assertLess(result.bestFitness, 1.001)
+        self.assertGreaterEqual(result.iterativeNumber, config.generationsMin)
+        self.assertEqual(len(result.bestScoreHistory), result.iterativeNumber + 1)
+        self.assertEqual(result.bestFitness, result.bestScoreHistory[-1])
+        self.assertAlmostEqual(
+            result.bestFitness,
+            optimizer.objective(result.bestDesign_mm, config.frequencyPenalty),
+        )
+        self.assertTrue(np.all(np.diff(result.bestScoreHistory) <= 0.0))
+        final_change = abs(result.bestScoreHistory[-1] - result.bestScoreHistory[-2]) / abs(result.bestScoreHistory[-2])
+        self.assertLess(final_change, config.terminationCondition)
+        self.assertGreaterEqual(result.elpasedTime, 0.0)
+        self.assert_consistent_and_feasible(result.bestDesign_mm)
 
 
 if __name__ == "__main__":
