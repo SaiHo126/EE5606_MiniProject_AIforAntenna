@@ -1,0 +1,358 @@
+{
+  "objective": "volume_mm3/11250 + penalty_weight*abs(predicted_GHz-2.4)",
+  "penalty_weight": 1.0,
+  "target_GHz": 2.4,
+  "frequency_tolerance_GHz": 0.01,
+  "models": {
+    "nn": {
+      "path": "C:\\Users\\Sai\\Desktop\\EE5606\\EE5606_MiniProject_AIforAntenna\\results\\nn\\nn_model_raw.npz",
+      "sha256": "567b8a3d21d4791d299e7be0bb27048b39821c19968cab3ad56b9f0c1f6dd4da",
+      "load_seconds": 0.01981779999914579
+    },
+    "gp": {
+      "path": "C:\\Users\\Sai\\Desktop\\EE5606\\EE5606_MiniProject_AIforAntenna\\results\\gp\\gp_model.npz",
+      "sha256": "27804ea94c0430f768a2ee764ac9b6de0d8873a4976762f83601807009fdce5d",
+      "load_seconds": 0.009846300003118813
+    }
+  },
+  "runs": [
+    {
+      "surrogate": "nn",
+      "seed": 1,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 1
+      },
+      "best_score": 0.08432843530792948,
+      "search_seconds": 0.12481039999693166,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        37.94779588856687,
+        25.0,
+        1.0
+      ],
+      "volume_mm3": 948.6948972141718,
+      "predicted_frequency_GHz": 2.400000000000003,
+      "analytical_frequency_GHz": 2.829038721674988,
+      "surrogate_target_deviation_MHz": 3.1086244689504383e-12,
+      "analytical_target_deviation_MHz": 429.03872167498804,
+      "surrogate_prediction_error_MHz": 429.0387216749849,
+      "geometry_feasible": true,
+      "frequency_acceptable": false,
+      "success": false,
+      "final_surrogate_prediction_seconds": 4.699999408330768e-06,
+      "analytical_verification_seconds": 1.7400001524947584e-05
+    },
+    {
+      "surrogate": "nn",
+      "seed": 2,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 2
+      },
+      "best_score": 0.08432843530806283,
+      "search_seconds": 0.12641569999686908,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        37.94779588857192,
+        25.0,
+        1.0
+      ],
+      "volume_mm3": 948.694897214298,
+      "predicted_frequency_GHz": 2.400000000000125,
+      "analytical_frequency_GHz": 2.8290387216749795,
+      "surrogate_target_deviation_MHz": 1.2523315717771766e-10,
+      "analytical_target_deviation_MHz": 429.03872167497957,
+      "surrogate_prediction_error_MHz": 429.03872167485434,
+      "geometry_feasible": true,
+      "frequency_acceptable": false,
+      "success": false,
+      "final_surrogate_prediction_seconds": 6.800000846851617e-06,
+      "analytical_verification_seconds": 7.699993147980422e-06
+    },
+    {
+      "surrogate": "nn",
+      "seed": 3,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 3
+      },
+      "best_score": 0.08432843530792901,
+      "search_seconds": 0.12875930000154767,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        37.94779588856685,
+        25.0,
+        1.0
+      ],
+      "volume_mm3": 948.6948972141713,
+      "predicted_frequency_GHz": 2.4000000000000026,
+      "analytical_frequency_GHz": 2.8290387216749884,
+      "surrogate_target_deviation_MHz": 2.6645352591003757e-12,
+      "analytical_target_deviation_MHz": 429.03872167498844,
+      "surrogate_prediction_error_MHz": 429.0387216749858,
+      "geometry_feasible": true,
+      "frequency_acceptable": false,
+      "success": false,
+      "final_surrogate_prediction_seconds": 5.200003215577453e-06,
+      "analytical_verification_seconds": 7.199996616691351e-06
+    },
+    {
+      "surrogate": "nn",
+      "seed": 4,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 4
+      },
+      "best_score": 0.08432843531139933,
+      "search_seconds": 0.12490490000345744,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        37.94779588869785,
+        25.0,
+        1.0
+      ],
+      "volume_mm3": 948.6948972174462,
+      "predicted_frequency_GHz": 2.400000000003182,
+      "analytical_frequency_GHz": 2.8290387216747774,
+      "surrogate_target_deviation_MHz": 3.1818991885756986e-09,
+      "analytical_target_deviation_MHz": 429.03872167477755,
+      "surrogate_prediction_error_MHz": 429.0387216715956,
+      "geometry_feasible": true,
+      "frequency_acceptable": false,
+      "success": false,
+      "final_surrogate_prediction_seconds": 4.499997885432094e-06,
+      "analytical_verification_seconds": 8.000002708286047e-06
+    },
+    {
+      "surrogate": "nn",
+      "seed": 5,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 5
+      },
+      "best_score": 0.08432843531062954,
+      "search_seconds": 0.1255308999971021,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        37.947795888668786,
+        25.0,
+        1.0
+      ],
+      "volume_mm3": 948.6948972167196,
+      "predicted_frequency_GHz": 2.4000000000024766,
+      "analytical_frequency_GHz": 2.829038721674824,
+      "surrogate_target_deviation_MHz": 2.4766855233337992e-09,
+      "analytical_target_deviation_MHz": 429.03872167482416,
+      "surrogate_prediction_error_MHz": 429.0387216723475,
+      "geometry_feasible": true,
+      "frequency_acceptable": false,
+      "success": false,
+      "final_surrogate_prediction_seconds": 4.3000036384910345e-06,
+      "analytical_verification_seconds": 7.199996616691351e-06
+    },
+    {
+      "surrogate": "gp",
+      "seed": 1,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 1
+      },
+      "best_score": 0.09395024501069146,
+      "search_seconds": 0.2688142000042717,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        35.61359723073416,
+        29.677997690266807,
+        1.0
+      ],
+      "volume_mm3": 1056.9402563558206,
+      "predicted_frequency_GHz": 2.400000000001285,
+      "analytical_frequency_GHz": 2.3999841168950127,
+      "surrogate_target_deviation_MHz": 1.2851941733060812e-09,
+      "analytical_target_deviation_MHz": 0.01588310498723544,
+      "surrogate_prediction_error_MHz": 0.015883106272429615,
+      "geometry_feasible": true,
+      "frequency_acceptable": true,
+      "success": true,
+      "final_surrogate_prediction_seconds": 3.029999788850546e-05,
+      "analytical_verification_seconds": 7.499998901039362e-06
+    },
+    {
+      "surrogate": "gp",
+      "seed": 2,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 2
+      },
+      "best_score": 0.09395024499895507,
+      "search_seconds": 0.2744592999952147,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        35.613597227792674,
+        29.677997688905272,
+        1.0
+      ],
+      "volume_mm3": 1056.9402562200341,
+      "predicted_frequency_GHz": 2.399999999998381,
+      "analytical_frequency_GHz": 2.399984117006235,
+      "surrogate_target_deviation_MHz": 1.6187051699034782e-09,
+      "analytical_target_deviation_MHz": 0.015882993765092834,
+      "surrogate_prediction_error_MHz": 0.015882992146387664,
+      "geometry_feasible": true,
+      "frequency_acceptable": true,
+      "success": true,
+      "final_surrogate_prediction_seconds": 2.9499999072868377e-05,
+      "analytical_verification_seconds": 7.800001185387373e-06
+    },
+    {
+      "surrogate": "gp",
+      "seed": 3,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 3
+      },
+      "best_score": 0.09395024500189728,
+      "search_seconds": 0.27996970000094734,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        35.61359722695948,
+        29.677997689000204,
+        1.0
+      ],
+      "volume_mm3": 1056.9402561986874,
+      "predicted_frequency_GHz": 2.3999999999935415,
+      "analytical_frequency_GHz": 2.3999841170000527,
+      "surrogate_target_deviation_MHz": 6.458389378849461e-09,
+      "analytical_target_deviation_MHz": 0.015882999947258725,
+      "surrogate_prediction_error_MHz": 0.015882993488869346,
+      "geometry_feasible": true,
+      "frequency_acceptable": true,
+      "success": true,
+      "final_surrogate_prediction_seconds": 2.9299997549969703e-05,
+      "analytical_verification_seconds": 8.499999239575118e-06
+    },
+    {
+      "surrogate": "gp",
+      "seed": 4,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 4
+      },
+      "best_score": 0.09395024500810856,
+      "search_seconds": 0.27230109999800334,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        35.61359723138549,
+        29.67799768849708,
+        1.0
+      ],
+      "volume_mm3": 1056.9402563121246,
+      "predicted_frequency_GHz": 2.3999999999974135,
+      "analytical_frequency_GHz": 2.399984117032802,
+      "surrogate_target_deviation_MHz": 2.5863755581667647e-09,
+      "analytical_target_deviation_MHz": 0.015882967197899944,
+      "surrogate_prediction_error_MHz": 0.015882964611524386,
+      "geometry_feasible": true,
+      "frequency_acceptable": true,
+      "success": true,
+      "final_surrogate_prediction_seconds": 3.239999932702631e-05,
+      "analytical_verification_seconds": 8.299997716676444e-06
+    },
+    {
+      "surrogate": "gp",
+      "seed": 5,
+      "config": {
+        "swarm_size": 40,
+        "iterations": 150,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "velocity_fraction": 0.2,
+        "seed": 5
+      },
+      "best_score": 0.0939502450180937,
+      "search_seconds": 0.27374309999868274,
+      "objective_evaluations": 6040,
+      "design_mm": [
+        35.61359722836177,
+        29.677997690301474,
+        1.0
+      ],
+      "volume_mm3": 1056.9402562866476,
+      "predicted_frequency_GHz": 2.400000000014836,
+      "analytical_frequency_GHz": 2.399984116895888,
+      "surrogate_target_deviation_MHz": 1.4836132322670892e-08,
+      "analytical_target_deviation_MHz": 0.01588310411193561,
+      "surrogate_prediction_error_MHz": 0.01588311894806793,
+      "geometry_feasible": true,
+      "frequency_acceptable": true,
+      "success": true,
+      "final_surrogate_prediction_seconds": 3.529999958118424e-05,
+      "analytical_verification_seconds": 8.499999239575118e-06
+    }
+  ],
+  "summary": {
+    "nn": {
+      "runs": 5,
+      "successes": 0,
+      "success_rate": 0.0,
+      "mean_search_seconds": 0.12608423999918159,
+      "mean_analytical_target_deviation_MHz": 429.0387216749115,
+      "mean_successful_volume_mm3": null
+    },
+    "gp": {
+      "runs": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "mean_search_seconds": 0.27385747999942395,
+      "mean_analytical_target_deviation_MHz": 0.01588303400188451,
+      "mean_successful_volume_mm3": 1056.940256274663
+    }
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "seed": 1,
+    "backend": "NumPy CPU",
+    "settings": {
+      "epochs": 100000,
+      "learning_rate": 1e-05,
+      "batch_size": 32,
+      "patience": 2000,
+      "target_rmse_khz": 10.0
+    },
+    "epochs_run": 100000,
+    "best_epoch": 100000,
+    "fit_seconds": 50.751275300004636,
+    "training_rmse_khz": 24514.815553434477,
+    "validation_rmse_khz": 22454.40101120525,
+    "test_rmse_khz": 24815.555343954784,
+    "validation_rmse_khz_at_1000": 137369.7188882538
+  },
+  {
+    "seed": 2,
+    "backend": "NumPy CPU",
+    "settings": {
+      "epochs": 100000,
+      "learning_rate": 1e-05,
+      "batch_size": 32,
+      "patience": 2000,
+      "target_rmse_khz": 10.0
+    },
+    "epochs_run": 100000,
+    "best_epoch": 100000,
+    "fit_seconds": 48.826454999994894,
+    "training_rmse_khz": 23902.692728311267,
+    "validation_rmse_khz": 23227.105934139647
+  },
+  {
+    "seed": 3,
+    "backend": "NumPy CPU",
+    "settings": {
+      "epochs": 100000,
+      "learning_rate": 1e-05,
+      "batch_size": 32,
+      "patience": 2000,
+      "target_rmse_khz": 10.0
+    },
+    "epochs_run": 100000,
+    "best_epoch": 100000,
+    "fit_seconds": 48.46939350000321,
+    "training_rmse_khz": 23487.490780217344,
+    "validation_rmse_khz": 22151.949637147816
+  }
+]

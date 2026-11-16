@@ -1,0 +1,47 @@
+{
+  "target_khz": 10,
+  "trials": [
+    {
+      "hidden_sizes": [
+        32
+      ],
+      "seed": 2,
+      "parameters": 161,
+      "device": "GPU",
+      "epochs_run": 200,
+      "best_epoch": 200,
+      "fit_seconds": 0.8314874999996391,
+      "training_rmse_khz": 3.5890478711032747,
+      "validation_rmse_khz": 4.93076311194149
+    }
+  ],
+  "selected_trial": 0,
+  "training_settings": {
+    "epochs": 500,
+    "damping": 0.001,
+    "target_khz": 5.0,
+    "patience": 80,
+    "optimizer": "handwritten Levenberg-Marquardt"
+  },
+  "split_sizes": {
+    "train": 420,
+    "validation": 90,
+    "test": 90
+  },
+  "test_rmse_khz": 8.776322861749698,
+  "target_met": true,
+  "validation_success_rates": {
+    "32": 1.0
+  },
+  "independent_audit": {
+    "samples": 10000,
+    "seed": 5606,
+    "rmse_khz": 6.78286817548573,
+    "target_met": true,
+    "max_absolute_error_khz": 125.50403156375012,
+    "generation_and_label_seconds": 0.01945770000020275
+  },
+  "test_max_absolute_error_khz": 66.93190649054159,
+  "test_prediction_seconds": 0.0007370000021182932,
+  "analytical_verification_seconds": 0.00018950000230688602
+}

@@ -1,0 +1,41 @@
+{
+  "source": "antennaSample_dataset.npz",
+  "fit_seconds": 4.995370800003002,
+  "selected_kernel": "17.9**2 * RBF(length_scale=[19.2, 5.65, 6.03])",
+  "selected_alpha": 1e-10,
+  "history": [
+    {
+      "alpha": 1e-10,
+      "kernel": "17.9**2 * RBF(length_scale=[19.2, 5.65, 6.03])",
+      "warnings": [
+        "lbfgs failed to converge after 13 iteration(s) (status=2):\nABNORMAL: \n\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html",
+        "lbfgs failed to converge after 20 iteration(s) (status=2):\nABNORMAL: \n\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+      ],
+      "RMSE_MHz": 0.0010509947274793285,
+      "MAE_MHz": 0.000798576568462729,
+      "max_error_MHz": 0.0031179588257934654
+    },
+    {
+      "alpha": 1e-08,
+      "kernel": "13.2**2 * RBF(length_scale=[23.1, 5.74, 7.57])",
+      "warnings": [
+        "lbfgs failed to converge after 16 iteration(s) (status=2):\nABNORMAL: \n\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html",
+        "lbfgs failed to converge after 21 iteration(s) (status=2):\nABNORMAL: \n\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html"
+      ],
+      "RMSE_MHz": 0.005657400779486833,
+      "MAE_MHz": 0.00427365363598516,
+      "max_error_MHz": 0.018116801789425097
+    }
+  ],
+  "validation": {
+    "RMSE_MHz": 0.0010509947274793285,
+    "MAE_MHz": 0.000798576568462729,
+    "max_error_MHz": 0.0031179588257934654
+  },
+  "test_prediction_seconds": 0.0003647999983513728,
+  "test": {
+    "RMSE_MHz": 0.0014221449765418367,
+    "MAE_MHz": 0.0009644254271535936,
+    "max_error_MHz": 0.006199386334504453
+  }
+}

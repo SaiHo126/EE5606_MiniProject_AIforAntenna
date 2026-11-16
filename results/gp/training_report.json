@@ -1,0 +1,117 @@
+{
+  "model": "C:\\Users\\Sai\\Desktop\\EE5606\\EE5606_MiniProject_AIforAntenna\\results\\gp\\gp_model.npz",
+  "data_loading_seconds": 0.007956000001286156,
+  "dataset_generation_seconds": null,
+  "fit_and_selection_seconds": 2.5831735000028857,
+  "training_samples": 420,
+  "validation_samples": 90,
+  "training": {
+    "rmse_MHz": 0.0016445245533972415,
+    "mae_MHz": 0.0012472421362581215,
+    "max_absolute_error_MHz": 0.007114861090951052
+  },
+  "validation": {
+    "rmse_MHz": 0.002679545333310304,
+    "mae_MHz": 0.0017288126351452011,
+    "max_absolute_error_MHz": 0.011683123659844696
+  },
+  "hyperparameter_search": [
+    {
+      "length_scale": 0.5,
+      "signal_std": 1.0,
+      "noise_std": 1e-06,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 11.682431468308023,
+      "negative_log_marginal_likelihood": -216.44880725843416,
+      "seconds": 0.3438631999961217
+    },
+    {
+      "length_scale": 0.5,
+      "signal_std": 1.0,
+      "noise_std": 0.0001,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 11.682572412047977,
+      "negative_log_marginal_likelihood": -216.44629829259713,
+      "seconds": 0.29549280000355793
+    },
+    {
+      "length_scale": 1,
+      "signal_std": 1.0,
+      "noise_std": 1e-06,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.16886261049191928,
+      "negative_log_marginal_likelihood": -1637.9835338436876,
+      "seconds": 0.17396960000041872
+    },
+    {
+      "length_scale": 1,
+      "signal_std": 1.0,
+      "noise_std": 0.0001,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.23109243649493977,
+      "negative_log_marginal_likelihood": -1585.8407744660797,
+      "seconds": 0.2638974000001326
+    },
+    {
+      "length_scale": 2,
+      "signal_std": 1.0,
+      "noise_std": 1e-06,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.00584982138738185,
+      "negative_log_marginal_likelihood": -3124.491054198687,
+      "seconds": 0.3462123999997857
+    },
+    {
+      "length_scale": 2,
+      "signal_std": 1.0,
+      "noise_std": 0.0001,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.009372881805453826,
+      "negative_log_marginal_likelihood": -2657.0546518233,
+      "seconds": 0.24583659999916563
+    },
+    {
+      "length_scale": 4,
+      "signal_std": 1.0,
+      "noise_std": 1e-06,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.002679545333310304,
+      "negative_log_marginal_likelihood": -3307.552566877863,
+      "seconds": 0.18814879999990808
+    },
+    {
+      "length_scale": 4,
+      "signal_std": 1.0,
+      "noise_std": 0.0001,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.017471847603828715,
+      "negative_log_marginal_likelihood": -2843.3122108427956,
+      "seconds": 0.3904720999998972
+    },
+    {
+      "length_scale": 8,
+      "signal_std": 1.0,
+      "noise_std": 1e-06,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.01538378937224165,
+      "negative_log_marginal_likelihood": 9097.95802331797,
+      "seconds": 0.1885173000046052
+    },
+    {
+      "length_scale": 8,
+      "signal_std": 1.0,
+      "noise_std": 0.0001,
+      "jitter_used": 1e-10,
+      "validation_rmse_MHz": 0.07348098321249909,
+      "negative_log_marginal_likelihood": 489.3739214512634,
+      "seconds": 0.1461593999993056
+    }
+  ],
+  "test_evaluated": true,
+  "test_prediction_seconds": 0.001430399999662768,
+  "test": {
+    "rmse_MHz": 0.0100075004268995,
+    "mae_MHz": 0.003486264843689647,
+    "max_absolute_error_MHz": 0.0811282325043905
+  }
+}

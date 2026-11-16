@@ -1,0 +1,296 @@
+{
+  "selection_split": "original validation only",
+  "test_evaluation": "after selecting the final 6109-neuron ReLU model",
+  "target": "RMSE below 10 kHz = MSE below 1e-10 GHz^2",
+  "raw_relu_trials": [
+    {
+      "widths": [
+        128
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "seconds": 9.324499400005152,
+      "parameters": 641,
+      "best_validation_RMSE_kHz": 1049.127695871237,
+      "training_RMSE_kHz": 840.2716252119441,
+      "source_file": "relu_128_seed1_scale0_center1.npz",
+      "iterations_run": 489
+    },
+    {
+      "widths": [
+        128
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "axis_init": true,
+      "extra_samples": 0,
+      "seconds": 1.3390064999985043,
+      "parameters": 641,
+      "best_validation_RMSE_kHz": 216.3814557424284,
+      "training_RMSE_kHz": 69.27293814378345,
+      "source_file": "relu_128_seed1_scale0_center1_axis1_extra0.npz",
+      "iterations_run": 55
+    },
+    {
+      "widths": [
+        128
+      ],
+      "activation": "relu",
+      "steps": 500,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "axis_init": true,
+      "extra_samples": 5000,
+      "seconds": 29.201410699999542,
+      "parameters": 641,
+      "best_validation_RMSE_kHz": 61.95653439298753,
+      "training_RMSE_kHz": 60.849915709106604,
+      "source_file": "relu_128_seed1_scale0_center1_axis1_extra5000.npz",
+      "iterations_run": 313
+    },
+    {
+      "widths": [
+        16,
+        16,
+        16
+      ],
+      "activation": "relu",
+      "steps": 2000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "seconds": 1.2406807000006665,
+      "parameters": 625,
+      "best_validation_RMSE_kHz": 2674.59940475491,
+      "training_RMSE_kHz": 2692.8623917291693,
+      "source_file": "relu_16_16_16_seed1_scale0.npz",
+      "iterations_run": 62
+    },
+    {
+      "widths": [
+        16,
+        16
+      ],
+      "activation": "relu",
+      "steps": 2000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "seconds": 0.27579839999816613,
+      "parameters": 353,
+      "best_validation_RMSE_kHz": 4820.762807189175,
+      "training_RMSE_kHz": 5570.336918809172,
+      "source_file": "relu_16_16_seed1_scale0.npz",
+      "iterations_run": 45
+    },
+    {
+      "widths": [
+        16
+      ],
+      "activation": "relu",
+      "steps": 300,
+      "seed": 1,
+      "scale": false,
+      "seconds": 0.3823852999994415,
+      "parameters": 81,
+      "best_validation_RMSE_kHz": 4482.78248643016,
+      "training_RMSE_kHz": 4981.032671067223,
+      "source_file": "relu_16_seed1_scale0.npz",
+      "iterations_run": 300
+    },
+    {
+      "widths": [
+        256
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "seconds": 58.05984690000332,
+      "parameters": 1281,
+      "best_validation_RMSE_kHz": 878.235554057366,
+      "training_RMSE_kHz": 525.9195382460782,
+      "source_file": "relu_256_seed1_scale0_center1.npz",
+      "iterations_run": 689
+    },
+    {
+      "widths": [
+        256
+      ],
+      "activation": "relu",
+      "steps": 500,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "axis_init": true,
+      "extra_samples": 5000,
+      "seconds": 28.19821220000449,
+      "parameters": 1281,
+      "best_validation_RMSE_kHz": 43.41133598870238,
+      "training_RMSE_kHz": 35.93872997746595,
+      "source_file": "relu_256_seed1_scale0_center1_axis1_extra5000.npz",
+      "iterations_run": 94
+    },
+    {
+      "widths": [
+        256
+      ],
+      "activation": "relu",
+      "steps": 500,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "axis_init": true,
+      "extra_samples": 5000,
+      "uniform_knots": true,
+      "seconds": 33.42447749999701,
+      "parameters": 1281,
+      "best_validation_RMSE_kHz": 31.3493293265948,
+      "training_RMSE_kHz": 30.215244433414433,
+      "source_file": "relu_256_seed1_scale0_center1_axis1_extra5000_uniform1.npz",
+      "iterations_run": 108
+    },
+    {
+      "widths": [
+        32,
+        16,
+        8
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "seconds": 9.261184999995749,
+      "parameters": 801,
+      "best_validation_RMSE_kHz": 2775.5803147552115,
+      "training_RMSE_kHz": 917.0267107616937,
+      "source_file": "relu_32_16_8_seed1_scale0_center1.npz",
+      "iterations_run": 183
+    },
+    {
+      "widths": [
+        32,
+        16
+      ],
+      "activation": "relu",
+      "steps": 2000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "seconds": 1.9046095999947283,
+      "parameters": 673,
+      "best_validation_RMSE_kHz": 2036.2171912446775,
+      "training_RMSE_kHz": 1863.7961960907915,
+      "source_file": "relu_32_16_seed1_scale0.npz",
+      "iterations_run": 87
+    },
+    {
+      "widths": [
+        32,
+        16
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "seconds": 3.8091647000037483,
+      "parameters": 673,
+      "best_validation_RMSE_kHz": 2906.706382356952,
+      "training_RMSE_kHz": 1495.4950478764188,
+      "source_file": "relu_32_16_seed1_scale0_center1.npz",
+      "iterations_run": 104
+    },
+    {
+      "widths": [
+        512
+      ],
+      "activation": "relu",
+      "steps": 500,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "axis_init": true,
+      "extra_samples": 10000,
+      "uniform_knots": true,
+      "seconds": 346.0484932000036,
+      "parameters": 2561,
+      "best_validation_RMSE_kHz": 34.646221270663446,
+      "training_RMSE_kHz": 28.19593859702198,
+      "source_file": "relu_512_seed1_scale0_center1_axis1_extra10000_uniform1.npz",
+      "iterations_run": 195
+    },
+    {
+      "widths": [
+        64
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "seconds": 1.1897460000036517,
+      "parameters": 321,
+      "best_validation_RMSE_kHz": 1009.4259129842802,
+      "training_RMSE_kHz": 643.7704084429811,
+      "source_file": "relu_64_seed1_scale0_center1.npz",
+      "iterations_run": 132
+    },
+    {
+      "widths": [
+        64
+      ],
+      "activation": "relu",
+      "steps": 500,
+      "seed": 1,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "axis_init": false,
+      "extra_samples": 5000,
+      "seconds": 7.464660199999344,
+      "parameters": 321,
+      "best_validation_RMSE_kHz": 511.41007207944074,
+      "training_RMSE_kHz": 479.41403711561355,
+      "source_file": "relu_64_seed1_scale0_center1_axis0_extra5000.npz",
+      "iterations_run": 194
+    },
+    {
+      "widths": [
+        64
+      ],
+      "activation": "relu",
+      "steps": 1000,
+      "seed": 2,
+      "scale": false,
+      "target_khz": 5.0,
+      "center_bias": true,
+      "seconds": 0.470126899999741,
+      "parameters": 321,
+      "best_validation_RMSE_kHz": 1354.6919523668264,
+      "training_RMSE_kHz": 1179.4625361461653,
+      "source_file": "relu_64_seed2_scale0_center1.npz",
+      "iterations_run": 90
+    }
+  ],
+  "selected_result": "relu_lm_h6109_gpu_n20420_summary.json"
+}

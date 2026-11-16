@@ -1,0 +1,71 @@
+{
+  "source_slides": "2-optimization methods(A).pdf, 23, 34, 44-49",
+  "trials": [
+    {
+      "seed": 1,
+      "device": "CPU",
+      "settings": {
+        "epochs": 1000,
+        "learning_rate": 1.0,
+        "batch_size": 420,
+        "patience": 2000,
+        "target_rmse_khz": 10.0,
+        "line_search": true,
+        "beta": 0.0001,
+        "sigma": 0.1,
+        "max_line_search_iterations": 40
+      },
+      "stop_reason": "epoch_limit",
+      "best_epoch": 1000,
+      "fit_seconds": 0.9386002000028384,
+      "validation_rmse_khz": 4783.71131874735,
+      "minimum_alpha": 0.140625,
+      "maximum_alpha": 1.0,
+      "analytical_verification_seconds": 0.00016940000205067918,
+      "test_rmse_khz": 5569.450404622829
+    },
+    {
+      "seed": 2,
+      "device": "CPU",
+      "settings": {
+        "epochs": 1000,
+        "learning_rate": 1.0,
+        "batch_size": 420,
+        "patience": 2000,
+        "target_rmse_khz": 10.0,
+        "line_search": true,
+        "beta": 0.0001,
+        "sigma": 0.1,
+        "max_line_search_iterations": 40
+      },
+      "stop_reason": "epoch_limit",
+      "best_epoch": 1000,
+      "fit_seconds": 0.9762893000006443,
+      "validation_rmse_khz": 5478.595719092272,
+      "minimum_alpha": 0.109375,
+      "maximum_alpha": 1.5
+    },
+    {
+      "seed": 3,
+      "device": "CPU",
+      "settings": {
+        "epochs": 1000,
+        "learning_rate": 1.0,
+        "batch_size": 420,
+        "patience": 2000,
+        "target_rmse_khz": 10.0,
+        "line_search": true,
+        "beta": 0.0001,
+        "sigma": 0.1,
+        "max_line_search_iterations": 40
+      },
+      "stop_reason": "epoch_limit",
+      "best_epoch": 1000,
+      "fit_seconds": 0.9469318999981624,
+      "validation_rmse_khz": 3420.1988421364,
+      "minimum_alpha": 0.1875,
+      "maximum_alpha": 1.5
+    }
+  ],
+  "validation_success_rate_below_10_khz": 0.0
+}

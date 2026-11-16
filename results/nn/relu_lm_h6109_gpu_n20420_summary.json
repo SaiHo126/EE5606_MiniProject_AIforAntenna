@@ -1,0 +1,43 @@
+{
+  "architecture": [
+    3,
+    6109,
+    1
+  ],
+  "activation": "relu",
+  "raw_mm_GHz": true,
+  "model_file": "nn_model_relu_lm_h6109_gpu_n20420.npz",
+  "dataset_file": "antenna_training_plus20000_seed101.npz",
+  "training_samples": 20420,
+  "validation_samples": 90,
+  "test_samples": 90,
+  "seed": 1,
+  "sample_seed": 101,
+  "settings": {
+    "optimizer": "lm_then_output_least_squares",
+    "epochs": 300,
+    "learning_rate": null,
+    "batch_size": 10420,
+    "tolerance_percent": null,
+    "patience": 1,
+    "target_rmse_kHz": 5,
+    "initial_damping": 0.01,
+    "uniform_knots": true,
+    "base_hidden_size": 768,
+    "refinement_factor": 8,
+    "lm_device": "gpu",
+    "output_fit_samples": 20420,
+    "output_rcond": 1e-10,
+    "output_rank": 4648,
+    "output_fit_device": "cpu"
+  },
+  "best_epoch": 269,
+  "training_seconds": 442.8148351999989,
+  "generation_seconds": 0.06946579999930691,
+  "validation_rmse_kHz": 8.030058170188683,
+  "test_mse_GHz2": 5.415719122964635e-11,
+  "test_rmse_kHz": 7.359156964601744,
+  "test_mae_kHz": 5.7445159578309,
+  "test_max_absolute_error_kHz": 19.780888052434165,
+  "test_rmse_below_10_kHz": true
+}

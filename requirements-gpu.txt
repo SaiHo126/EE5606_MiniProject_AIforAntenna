@@ -1,0 +1,6 @@
+# Optional GPU backend for the handwritten ReLU network (NVIDIA CUDA 13).
+# CUDA 13.2 components match this machine's driver capabilities.
+cupy-cuda13x[ctk]==14.2.0
+cuda-toolkit==13.2.*
+nvidia-nvjitlink==13.2.*
+matplotlib

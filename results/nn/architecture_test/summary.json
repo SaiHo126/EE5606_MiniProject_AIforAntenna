@@ -1,0 +1,239 @@
+{
+  "target_khz": 10,
+  "trials": [
+    {
+      "hidden_sizes": [
+        8
+      ],
+      "seed": 1,
+      "parameters": 41,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 8.337460199996713,
+      "training_rmse_khz": 23.820135678009525,
+      "validation_rmse_khz": 21.81271743176892
+    },
+    {
+      "hidden_sizes": [
+        8
+      ],
+      "seed": 2,
+      "parameters": 41,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 499,
+      "fit_seconds": 0.9240477999992436,
+      "training_rmse_khz": 24.18695390859049,
+      "validation_rmse_khz": 21.520433703577833
+    },
+    {
+      "hidden_sizes": [
+        8
+      ],
+      "seed": 3,
+      "parameters": 41,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 499,
+      "fit_seconds": 0.9930385999978171,
+      "training_rmse_khz": 104.28953078335495,
+      "validation_rmse_khz": 100.89786355853796
+    },
+    {
+      "hidden_sizes": [
+        16
+      ],
+      "seed": 1,
+      "parameters": 81,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 0.8767614999960642,
+      "training_rmse_khz": 4.212444794557398,
+      "validation_rmse_khz": 5.977771549744943
+    },
+    {
+      "hidden_sizes": [
+        16
+      ],
+      "seed": 2,
+      "parameters": 81,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 0.8461505000013858,
+      "training_rmse_khz": 7.373500268356855,
+      "validation_rmse_khz": 7.208085992547339
+    },
+    {
+      "hidden_sizes": [
+        16
+      ],
+      "seed": 3,
+      "parameters": 81,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 0.9146165999991354,
+      "training_rmse_khz": 11.688320430749082,
+      "validation_rmse_khz": 13.996092492040248
+    },
+    {
+      "hidden_sizes": [
+        32
+      ],
+      "seed": 1,
+      "parameters": 161,
+      "device": "GPU",
+      "epochs_run": 340,
+      "best_epoch": 340,
+      "fit_seconds": 0.7034985999998753,
+      "training_rmse_khz": 3.401634862285578,
+      "validation_rmse_khz": 4.978627822009958
+    },
+    {
+      "hidden_sizes": [
+        32
+      ],
+      "seed": 2,
+      "parameters": 161,
+      "device": "GPU",
+      "epochs_run": 200,
+      "best_epoch": 200,
+      "fit_seconds": 0.4017448000013246,
+      "training_rmse_khz": 3.5890478711032747,
+      "validation_rmse_khz": 4.93076311194149
+    },
+    {
+      "hidden_sizes": [
+        32
+      ],
+      "seed": 3,
+      "parameters": 161,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 1.0403889999943203,
+      "training_rmse_khz": 4.4370263267705745,
+      "validation_rmse_khz": 6.423297489952723
+    },
+    {
+      "hidden_sizes": [
+        16,
+        8
+      ],
+      "seed": 1,
+      "parameters": 209,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 1.5340924999982235,
+      "training_rmse_khz": 2.205920028750309,
+      "validation_rmse_khz": 5.075970529917974
+    },
+    {
+      "hidden_sizes": [
+        16,
+        8
+      ],
+      "seed": 2,
+      "parameters": 209,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 500,
+      "fit_seconds": 1.5672180999972625,
+      "training_rmse_khz": 7.289946602586752,
+      "validation_rmse_khz": 9.822091735459402
+    },
+    {
+      "hidden_sizes": [
+        16,
+        8
+      ],
+      "seed": 3,
+      "parameters": 209,
+      "device": "GPU",
+      "epochs_run": 500,
+      "best_epoch": 499,
+      "fit_seconds": 1.505877600000531,
+      "training_rmse_khz": 4.031554157596091,
+      "validation_rmse_khz": 7.116348311200535
+    },
+    {
+      "hidden_sizes": [
+        16,
+        16
+      ],
+      "seed": 1,
+      "parameters": 353,
+      "device": "GPU",
+      "epochs_run": 458,
+      "best_epoch": 458,
+      "fit_seconds": 2.6351098000013735,
+      "training_rmse_khz": 1.7025379216354717,
+      "validation_rmse_khz": 4.9899311050015935
+    },
+    {
+      "hidden_sizes": [
+        16,
+        16
+      ],
+      "seed": 2,
+      "parameters": 353,
+      "device": "GPU",
+      "epochs_run": 361,
+      "best_epoch": 361,
+      "fit_seconds": 1.980653099999472,
+      "training_rmse_khz": 2.1840141473163674,
+      "validation_rmse_khz": 4.980531218635253
+    },
+    {
+      "hidden_sizes": [
+        16,
+        16
+      ],
+      "seed": 3,
+      "parameters": 353,
+      "device": "GPU",
+      "epochs_run": 313,
+      "best_epoch": 313,
+      "fit_seconds": 1.7899576999989222,
+      "training_rmse_khz": 1.6190203384181416,
+      "validation_rmse_khz": 4.976545744491812
+    }
+  ],
+  "selected_trial": 7,
+  "training_settings": {
+    "epochs": 500,
+    "damping": 0.001,
+    "target_khz": 5.0,
+    "patience": 80,
+    "optimizer": "handwritten Levenberg-Marquardt"
+  },
+  "split_sizes": {
+    "train": 420,
+    "validation": 90,
+    "test": 90
+  },
+  "test_rmse_khz": 8.776322861749698,
+  "target_met": true,
+  "validation_success_rates": {
+    "8": 0.0,
+    "16": 0.6666666666666666,
+    "32": 1.0,
+    "16,8": 1.0,
+    "16,16": 1.0
+  },
+  "independent_audit": {
+    "samples": 10000,
+    "seed": 5606,
+    "rmse_khz": 6.78286817548573,
+    "target_met": true,
+    "max_absolute_error_khz": 125.50403156375012,
+    "generation_and_label_seconds": 0.032504499999049585
+  },
+  "test_max_absolute_error_khz": 66.93190649054159,
+  "test_prediction_seconds": 0.0013360000011743978,
+  "analytical_verification_seconds": 0.0004555000050459057
+}
