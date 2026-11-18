@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="619.2pt" viewBox="0 0 864 619.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-18T17:13:17.027818</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 619.2 
+L 864 619.2 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 32.4 86.4 
+L 831.6 86.4 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #dce5ed; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 288 144 
+L 322.546556 144 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 317.346556 141.4 
+L 322.546556 144 
+L 317.346556 146.6 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 540 144 
+L 574.546556 144 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 569.346556 141.4 
+L 574.546556 144 
+L 569.346556 146.6 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 432 180 
+L 302.4 201.6 
+L 21.6 201.6 
+L 21.6 288 
+L 34.546556 288 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 29.346556 285.4 
+L 34.546556 288 
+L 29.346556 290.6 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 432 180 
+L 432 239.746556 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 434.6 234.546556 
+L 432 239.746556 
+L 429.4 234.546556 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 432 180 
+L 554.4 201.6 
+L 842.4 201.6 
+L 842.4 306 
+L 829.453444 306 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 834.653444 308.6 
+L 829.453444 306 
+L 834.653444 303.4 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 432 334.8 
+L 361.053746 402.198941 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 366.614492 400.502442 
+L 361.053746 402.198941 
+L 363.032995 396.732445 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 550.8 450 
+L 565.2 450 
+L 565.2 216 
+L 702 216 
+L 702 239.746556 
+" clip-path="url(#pcdca25d2b8)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 704.6 234.546556 
+L 702 239.746556 
+L 699.4 234.546556 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17344b" x="32.4" y="41.880156" transform="rotate(-0 32.4 41.880156)">01  Genetic algorithm | architecture</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="68.458359" transform="rotate(-0 32.4 68.458359)">GeneticAlgorithm.py · analytical optimization · lower fitness is better</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 42.48 108 
+L 281.52 108 
+Q 288 108 288 114.48 
+L 288 173.52 
+Q 288 180 281.52 180 
+L 42.48 180 
+Q 36 180 36 173.52 
+L 36 114.48 
+Q 36 108 42.48 108 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 330.48 108 
+L 533.52 108 
+Q 540 108 540 114.48 
+L 540 173.52 
+Q 540 180 533.52 180 
+L 330.48 180 
+Q 324 180 324 173.52 
+L 324 114.48 
+Q 324 108 330.48 108 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #17344b; stroke: #17344b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 582.48 108 
+L 821.52 108 
+Q 828 108 828 114.48 
+L 828 173.52 
+Q 828 180 821.52 180 
+L 582.48 180 
+Q 576 180 576 173.52 
+L 576 114.48 
+Q 576 108 582.48 108 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 42.48 241.2 
+L 281.52 241.2 
+Q 288 241.2 288 247.68 
+L 288 328.32 
+Q 288 334.8 281.52 334.8 
+L 42.48 334.8 
+Q 36 334.8 36 328.32 
+L 36 247.68 
+Q 36 241.2 42.48 241.2 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #edf3ff; stroke: #4267a8; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 330.48 241.2 
+L 533.52 241.2 
+Q 540 241.2 540 247.68 
+L 540 328.32 
+Q 540 334.8 533.52 334.8 
+L 330.48 334.8 
+Q 324 334.8 324 328.32 
+L 324 247.68 
+Q 324 241.2 330.48 241.2 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #edf3ff; stroke: #4267a8; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 582.48 241.2 
+L 821.52 241.2 
+Q 828 241.2 828 247.68 
+L 828 364.32 
+Q 828 370.8 821.52 370.8 
+L 582.48 370.8 
+Q 576 370.8 576 364.32 
+L 576 247.68 
+Q 576 241.2 582.48 241.2 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 175.68 403.2 
+L 544.32 403.2 
+Q 550.8 403.2 550.8 409.68 
+L 550.8 490.32 
+Q 550.8 496.8 544.32 496.8 
+L 175.68 496.8 
+Q 169.2 496.8 169.2 490.32 
+L 169.2 409.68 
+Q 169.2 403.2 175.68 403.2 
+z
+" clip-path="url(#pcdca25d2b8)" style="fill: #edf3ff; stroke: #4267a8; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="556.605937" transform="rotate(-0 32.4 556.605937)">Fitness: J = W·L·h / 11250 + λ |f_analytical − 2.4|. Frequency is in GHz; volume is in mm³.</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="576.045937" transform="rotate(-0 32.4 576.045937)">Current config constructor forces λ = 1 and terminationCondition = 0.01, ignoring the supplied values.</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 8.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="595.485937" transform="rotate(-0 32.4 595.485937)">The __main__ driver repeats ten seeds, plots histories, and displays the lowest-fitness final result.</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(88.014344 139.211969)">Bounds + config + RNG seed</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(85.382031 154.361969)">Design genes: [W, L, h] in mm</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #ffffff" transform="translate(373.758508 139.211969)">GeneticAlgorithm.run()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #ffffff" transform="translate(341.098422 154.361969)">Population and convergence control</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(685.083289 140.190406)">results</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(632.586961 154.361969)">Design, score, history, time</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(110.479742 275.636969)">initializePopulation()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(80.19868 290.786969)">Uniform sampling within bounds</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(97.268469 305.936969)">Repair antenna geometry</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(368.325813 275.496516)">create_next_generation()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(369.218242 290.786969)">Unique elites + offspring</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(358.827078 305.936969)">Replace duplicates randomly</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(654.784867 287.040406)">PatchFormula.RMA</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(624.116375 301.211969)">Analytical frequency + volume</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(638.544383 316.361969)">fitness() + geometryFix()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(635.040156 332.093508)">W/L ≥ 1.2 and box bounds</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(256.576 437.496516)">select_parent() → crossover() → mutate()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(230.084805 452.786969)">Tournament → arithmetic blend → Gaussian change</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(255.575469 467.936969)">Clip genes, repair geometry, refresh RMA</text>
+   </g>
+   <g id="text_13">
+    <g id="patch_16">
+     <path d="M 596.039984 222.278336 
+L 656.760016 222.278336 
+L 656.760016 209.721664 
+L 596.039984 209.721664 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 8.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526578" x="626.4" y="218.23432" transform="rotate(-0 626.4 218.23432)">repair / score</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcdca25d2b8">
+   <rect x="0" y="0" width="864" height="619.2"/>
+  </clipPath>
+ </defs>
+</svg>

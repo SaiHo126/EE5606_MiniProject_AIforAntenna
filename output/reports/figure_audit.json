@@ -1,0 +1,41 @@
+{
+  "ga_best": {
+    "actual_seed": 5,
+    "configured_seed": 5,
+    "generations": 100,
+    "design_mm": [
+      35.613361669418126,
+      29.677801391181774,
+      1.0
+    ],
+    "volume_mm3": 1056.9262744973169,
+    "frequency_GHz": 2.39999986686662,
+    "target_error_MHz": 0.00013313337987597151,
+    "ratio": 1.2,
+    "fitness": 0.09394913531091915,
+    "initial_fitness": 0.42837766923755943
+  },
+  "ga_mean_error_MHz": 0.3780050875715091,
+  "library_comparison": {
+    "NN": {
+      "runs": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "mean_search_seconds": 0.1313360800002556,
+      "mean_target_error_MHz": 0.7678118598553496,
+      "mean_successful_volume_mm3": 1057.6080898385665
+    },
+    "GP": {
+      "runs": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "mean_search_seconds": 1.5497888399997464,
+      "mean_target_error_MHz": 0.05731941571092136,
+      "mean_successful_volume_mm3": 1056.9770420375037
+    }
+  },
+  "gpu_nn_mean_seconds": 2.080381960000159,
+  "cpu_nn_mean_seconds": 0.14211811999994098,
+  "gpu_cpu_ratio": 14.638400507979018,
+  "checks": "Analytical final frequencies, geometries, monotonic histories and final CSV positions verified."
+}

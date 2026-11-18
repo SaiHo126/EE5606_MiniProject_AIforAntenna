@@ -1,0 +1,32 @@
+%% 02  Genetic algorithm | flowchart
+%% GeneticAlgorithm.run() and create_next_generation() · current control flow
+flowchart TB
+    start(["Start timer; create seeded GA instance"]):::terminal
+    initial["Initialize population of RMA antenna objects<br/>Repair dimensions; calculate analytical f and volume"]:::process
+    score0["Evaluate initial population; record minimum score<br/>Set generation = 0 and relative change = ∞"]:::process
+    elites["Sort current population by fitness<br/>Copy unique elites into next population"]:::process
+    breed["Select two parents by tournament<br/>Blend genes with crossover probability<br/>Mutate each gene with Gaussian noise"]:::process
+    repair["Clip bounds and repair W/L ≥ 1.2<br/>If duplicate: try a fresh repaired random design<br/>Append unseen children until population is full"]:::process
+    full{"Population<br/>full?"}:::decision
+    evaluate["Evaluate new population; record its best design / score<br/>Append history; increment generation"]:::process
+    stop{"Generation ≥ generationsMin<br/>and relative change &lt; 0.01?"}:::decision
+    done(["Return design, fitness, history, generations and time"]):::terminal
+    start --> initial
+    initial --> score0
+    score0 --> elites
+    elites --> breed
+    breed --> repair
+    repair --> full
+    full -->|"No"| breed
+    full -->|"Yes"| evaluate
+    evaluate --> stop
+    stop -->|"No"| elites
+    stop -->|"Yes"| done
+    classDef process fill:#edf3ff,stroke:#4267a8,color:#17344b
+    classDef data fill:#eaf6f3,stroke:#297b70,color:#17344b
+    classDef decision fill:#fff5dc,stroke:#aa791e,color:#17344b
+    classDef warning fill:#fff0e9,stroke:#b4532b,color:#17344b
+    classDef terminal fill:#17344b,stroke:#17344b,color:#ffffff
+%% Relative change = |J_current − J_previous| / |J_previous|; this is score stagnation, not frequency acceptance.
+%% There is no maximum-generation cap. Defaults shown by __main__: population 6, minimum 100 generations, 1 elite.
+%% Crossover probability 0.8; per-gene mutation probability 0.2; mutation scale = 0.1 × each dimension's range.

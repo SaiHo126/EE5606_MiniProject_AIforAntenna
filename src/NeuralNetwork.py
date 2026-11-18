@@ -1,9 +1,9 @@
 from pathlib import Path
+import json
 import numpy as np
 from time import perf_counter
 
 # CuPy runs the same array operations on the GPU; NumPy is the CPU fallback.
-# Install GPU support: python -m pip install "cupy-cuda12x[ctk]" matplotlib
 try:
     import cupy as cp
     xp = cp if cp.is_available() else np
@@ -13,12 +13,6 @@ except (ImportError, OSError, RuntimeError):
 
 def approximate_line_search(evaluate, initial_step=1.0, beta=1e-4, sigma=0.1,
                             max_iterations=40):
-    """Strong Wolfe search from optimization methods(A), slides 23, 34, 44-48.
-
-    evaluate(alpha) returns f(x + alpha*d) and grad(f).T @ d.
-    Accept sufficient decrease AND |slope| <= -sigma * initial_slope.
-    Double alpha to bracket, then bisect (zoom). No library optimizer is used.
-    """
     if not (np.isfinite(initial_step) and initial_step > 0
             and 0 < beta < sigma < 1 and max_iterations >= 1):
         raise ValueError("Require alpha > 0, 0 < beta < sigma < 1, and a positive search limit.")
@@ -59,24 +53,25 @@ def approximate_line_search(evaluate, initial_step=1.0, beta=1e-4, sigma=0.1,
     raise RuntimeError("Strong Wolfe bracketing did not find an acceptable step.")
 
 
-class NerualNetwork:
+class NeuralNetwork:
     inputSize = 3
     outputSize = 1
     activationHidden = "tanh"
-    def __init__(self, hiddenSize, seed):
+    def __init__(self, hiddenSize, seed, *, cpu=False):
+        self.xp = np if cpu else xp
         self.hiddenSize = hiddenSize
         self.seed = seed
         self.rng = np.random.default_rng(seed)
         # fit() learns these from training data only; identity scaling before fit.
-        self.X_mean, self.X_std = xp.zeros((1, 3)), xp.ones((1, 3))
-        self.Y_mean, self.Y_std = xp.zeros((1, 1)), xp.ones((1, 1))
+        self.X_mean, self.X_std = self.xp.zeros((1, 3)), self.xp.ones((1, 3))
+        self.Y_mean, self.Y_std = self.xp.zeros((1, 1)), self.xp.ones((1, 1))
         # Xavier initialization for tanh with standardized inputs.
         self.limit_hidden = np.sqrt(6/(self.inputSize+self.hiddenSize))
-        self.W_hidden = xp.asarray(self.rng.uniform(-self.limit_hidden,self.limit_hidden, size=(self.hiddenSize,self.inputSize)))
-        self.B_hidden = xp.zeros((self.hiddenSize,1))
+        self.W_hidden = self.xp.asarray(self.rng.uniform(-self.limit_hidden,self.limit_hidden, size=(self.hiddenSize,self.inputSize)))
+        self.B_hidden = self.xp.zeros((self.hiddenSize,1))
         self.limit_output = np.sqrt(6/(self.hiddenSize+self.outputSize))
-        self.W_output = xp.asarray(self.rng.uniform(-self.limit_output,self.limit_output, size=(self.outputSize,self.hiddenSize)))
-        self.B_output = xp.zeros((self.outputSize,1))
+        self.W_output = self.xp.asarray(self.rng.uniform(-self.limit_output,self.limit_output, size=(self.outputSize,self.hiddenSize)))
+        self.B_output = self.xp.zeros((self.outputSize,1))
         
         self.history = {"training_loss": [], "validation_loss": []}
         self.training_settings={}
@@ -85,11 +80,11 @@ class NerualNetwork:
         self.stop_reason = "not_trained"
     def activationFunction(self,Z):
         if self.activationHidden == "tanh":
-            return xp.tanh(Z)
+            return self.xp.tanh(Z)
     def forward(self, X):
         # Internal forward pass uses standardized inputs and outputs.
         # Use predict() for a design in mm and a frequency in GHz.
-        X = xp.asarray(X)
+        X = self.xp.asarray(X)
         Z_hidden = self.W_hidden @ X.T + self.B_hidden # (hiddenSize, 3) @ (3, N)
         A_hidden = self.activationFunction(Z_hidden) # (hiddenSize, N)
         Z_output = self.W_output @ A_hidden + self.B_output # (1, hiddenSize) @ (hiddenSize, N)
@@ -97,22 +92,22 @@ class NerualNetwork:
         return Z_output.T, cache # (N, 1)
     def loss(self, Y_pred, Y_actually):
         # return MSE
-        return float(xp.mean(xp.square(Y_pred-xp.asarray(Y_actually))))
+        return float(self.xp.mean(self.xp.square(Y_pred-self.xp.asarray(Y_actually))))
     def backward(self, Y_pred, Y_actual, cache :dict):
         # backward propagation using gradient
-        Y_actual = xp.asarray(Y_actual)
+        Y_actual = self.xp.asarray(Y_actual)
         X = cache["X"]
         Z_hidden = cache["Z_hidden"]
         A_hidden = cache["A_hidden"]
         N = X.shape[1]
         E_output = (Y_pred- Y_actual) * (2.0/N) # (N, 1)
         dW_output = E_output.T @ A_hidden.T # (1, hiddenSize)
-        dB_output = xp.sum(E_output, axis=0, keepdims=True)
+        dB_output = self.xp.sum(E_output, axis=0, keepdims=True)
         # different activation function have different E_hidden
         if(self.activationHidden == "tanh"):
             E_hidden = (self.W_output.T @ E_output.T) * (1- A_hidden**2) # (hiddenSize, N)
         dW_hidden = E_hidden @ X.T # (hiddenSize, 3)
-        dB_hidden = xp.sum(E_hidden, axis =1, keepdims = True) # (hiddenSize, 1)
+        dB_hidden = self.xp.sum(E_hidden, axis =1, keepdims = True) # (hiddenSize, 1)
         return {
             "dW_hidden": dW_hidden,
             "dB_hidden": dB_hidden,
@@ -129,7 +124,7 @@ class NerualNetwork:
         # x in the slides represents ALL weights and biases; d = -gradient.
         names = ("W_hidden", "B_hidden", "W_output", "B_output")
         original = {name: getattr(self, name).copy() for name in names}
-        norm_squared = float(sum(xp.sum(g*g) for g in gradients.values()))
+        norm_squared = float(sum(self.xp.sum(g*g) for g in gradients.values()))
         if norm_squared == 0:
             return 0.0
 
@@ -140,7 +135,7 @@ class NerualNetwork:
             prediction, cache = self.forward(X)
             value = self.loss(prediction, Y)
             new_gradients = self.backward(prediction, Y, cache)
-            slope = -float(sum(xp.sum(new_gradients[key]*gradients[key]) for key in gradients))
+            slope = -float(sum(self.xp.sum(new_gradients[key]*gradients[key]) for key in gradients))
             return value, slope
 
         try:
@@ -175,16 +170,16 @@ class NerualNetwork:
                                 and max_line_search_iterations >= 1):
             raise ValueError("Require alpha > 0, 0 < beta < sigma < 1, and a positive search limit.")
         # Transfer the datasets once; batches and parameters stay on the GPU.
-        X_train = xp.asarray(dataTrain["X_mm"])
-        Y_train = xp.asarray(dataTrain["Y_GHz"])
-        X_validation = xp.asarray(dataValidation["X_mm"])
-        Y_validation = xp.asarray(dataValidation["Y_GHz"])
+        X_train = self.xp.asarray(dataTrain["X_mm"])
+        Y_train = self.xp.asarray(dataTrain["Y_GHz"])
+        X_validation = self.xp.asarray(dataValidation["X_mm"])
+        Y_validation = self.xp.asarray(dataValidation["Y_GHz"])
         self.X_mean = X_train.mean(axis=0, keepdims=True)
         self.X_std = X_train.std(axis=0, keepdims=True)
         self.Y_mean = Y_train.mean(axis=0, keepdims=True)
         self.Y_std = Y_train.std(axis=0, keepdims=True)
-        self.X_std = xp.where(self.X_std == 0, 1.0, self.X_std)
-        self.Y_std = xp.where(self.Y_std == 0, 1.0, self.Y_std)
+        self.X_std = self.xp.where(self.X_std == 0, 1.0, self.X_std)
+        self.Y_std = self.xp.where(self.Y_std == 0, 1.0, self.Y_std)
         X_train = (X_train-self.X_mean)/self.X_std
         Y_train = (Y_train-self.Y_mean)/self.Y_std
         X_validation = (X_validation-self.X_mean)/self.X_std
@@ -213,8 +208,8 @@ class NerualNetwork:
         for epoch in range(epochs):
             stalled = False
             # randomlize the data set order
-            order = (xp.arange(len(X_train)) if batch_size >= len(X_train)
-                     else xp.asarray(self.rng.permutation(len(X_train))))
+            order = (self.xp.arange(len(X_train)) if batch_size >= len(X_train)
+                     else self.xp.asarray(self.rng.permutation(len(X_train))))
             for start in range(0, len(X_train), batch_size):
                 indices = order[start:start+batch_size]
                 X_batch = X_train[indices]
@@ -268,13 +263,13 @@ class NerualNetwork:
         self.W_hidden, self.B_hidden, self.W_output, self.B_output = best_parameters            
         return self.history
     def predict(self, design_mm):
-        X_mm = xp.asarray(design_mm, dtype=float).reshape(1,3)
+        X_mm = self.xp.asarray(design_mm, dtype=float).reshape(1,3)
         Y_scaled , _ = self.forward((X_mm-self.X_mean)/self.X_std)
         Y_GHz = Y_scaled*self.Y_std+self.Y_mean
         return float(Y_GHz[0,0])
     def save(self,filename):
         # NPZ files use CPU arrays so they can also be loaded without a GPU.
-        to_numpy = np.asarray if xp is np else xp.asnumpy
+        to_numpy = np.asarray if self.xp is np else self.xp.asnumpy
         np.savez(
             filename,
             W_hidden=to_numpy(self.W_hidden), B_hidden=to_numpy(self.B_hidden),
@@ -298,22 +293,22 @@ class NerualNetwork:
             validation_loss=self.history["validation_loss"],
         )
     @classmethod
-    def load(cls, filename):
+    def load(cls, filename, *, cpu=False):
         with np.load(filename) as data:
             if("data_representation" not in data
                or data ["data_representation"].item() not in ("mm_GHz", "scaled_mm_GHz")):
-                raise ValueError("Load a model saved by NerualNetwork.py.")
+                raise ValueError("Load a model saved by NeuralNetwork.py.")
             model = cls(
                     hiddenSize=int(data["hidden_size"]),
-                    seed=int(data["seed"]),)
+                    seed=int(data["seed"]), cpu=cpu)
             # Older raw-unit models keep identity scaling for compatibility.
             if data["data_representation"].item() == "scaled_mm_GHz":
                 for name in ("X_mean", "X_std", "Y_mean", "Y_std"):
-                    setattr(model, name, xp.asarray(data[name]))
-            model.W_hidden = xp.asarray(data["W_hidden"])
-            model.B_hidden = xp.asarray(data["B_hidden"])
-            model.W_output = xp.asarray(data["W_output"])
-            model.B_output = xp.asarray(data["B_output"])
+                    setattr(model, name, model.xp.asarray(data[name]))
+            model.W_hidden = model.xp.asarray(data["W_hidden"])
+            model.B_hidden = model.xp.asarray(data["B_hidden"])
+            model.W_output = model.xp.asarray(data["W_output"])
+            model.B_output = model.xp.asarray(data["B_output"])
             model.best_epoch = int(data["best_epoch"])
             model.training_settings = {
                             "epochs": int(data["epochs"]),
@@ -335,20 +330,39 @@ class NerualNetwork:
         return model
 
 
-def plot_prediction_comparison(model, X_test_mm, output_path):
-    """Compare a trained model with the analytical formula on held-out designs."""
+def plot_prediction_comparison(model, X_test_mm, output_path, sample_indices=None):
+    """Plot held-out predictions and errors; export numerical evidence for the report.
+
+    'Actual' means the worksheet's analytical formula, not a full-wave simulation.
+    sample_indices optionally identifies rows in the original saved dataset.
+    """
     import matplotlib.pyplot as plt
     if __package__:
         from .PatchFormula import RMA
     else:
         from PatchFormula import RMA
 
+    X_test_mm = np.asarray(X_test_mm, dtype=float)
+    if (X_test_mm.ndim != 2 or X_test_mm.shape[1] != 3 or len(X_test_mm) == 0
+            or not np.all(np.isfinite(X_test_mm))):
+        raise ValueError("X_test_mm must be a nonempty finite array of shape (N, 3).")
+    if sample_indices is None:
+        sample_indices = np.arange(len(X_test_mm))
+    sample_indices = np.asarray(sample_indices)
+    if sample_indices.shape != (len(X_test_mm),):
+        raise ValueError("Provide one sample index per test design.")
+
     analytical = np.array([RMA(*design).ResonanceF_GHz for design in X_test_mm])
     predicted = np.array([model.predict(design) for design in X_test_mm])
+    if not np.all(np.isfinite(predicted)):
+        raise ValueError("NN returned non-finite test predictions.")
     error_khz = (predicted - analytical) * 1e6
     rmse_khz = np.sqrt(np.mean(error_khz**2))
+    mae_khz = np.mean(np.abs(error_khz))
+    max_error_khz = np.max(np.abs(error_khz))
     print(f"Test RMSE against analytical formula: {rmse_khz:.3f} kHz")
-    print(f"Test maximum absolute error: {np.max(np.abs(error_khz)):.3f} kHz")
+    print(f"Test MAE against analytical formula: {mae_khz:.3f} kHz")
+    print(f"Test maximum absolute error: {max_error_khz:.3f} kHz")
 
     # Sort both arrays together for a readable overlay. This is not a geometry sweep.
     order = np.argsort(analytical)
@@ -373,6 +387,61 @@ def plot_prediction_comparison(model, X_test_mm, output_path):
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=150)
     print(f"Saved prediction comparison: {output_path}")
+
+    # Keep the existing combined plot, plus separate figures for a report/slide.
+    stem = output_path.stem.removesuffix("_comparison")
+    difference_path = output_path.with_name(stem + "_difference.png")
+    difference_fig, difference_ax = plt.subplots(figsize=(9, 4.5))
+    difference_ax.plot(sample, error_khz[order], ".-", color="tab:blue", linewidth=1)
+    difference_ax.axhline(0, color="black", linestyle="--", linewidth=1)
+    difference_ax.set_xlabel("Test design rank (sorted by analytical frequency)")
+    difference_ax.set_ylabel("Predicted - actual frequency (kHz)")
+    difference_ax.set_title(f"NN prediction error on {len(order)} held-out test designs\n"
+                            f"RMSE = {rmse_khz:.3f} kHz; MAE = {mae_khz:.3f} kHz; "
+                            f"Max |error| = {max_error_khz:.3f} kHz")
+    difference_ax.grid(True, alpha=0.3)
+    difference_fig.text(0.5, 0.02,
+                        "Actual = analytical formula. Positive error means the NN overpredicts frequency.",
+                        ha="center", fontsize=9)
+    difference_fig.tight_layout(rect=(0, 0.05, 1, 1))
+    difference_fig.savefig(difference_path, dpi=200)
+
+    parity_path = output_path.with_name(stem + "_parity.png")
+    parity_fig, parity_ax = plt.subplots(figsize=(6, 6))
+    low = float(min(analytical.min(), predicted.min()))
+    high = float(max(analytical.max(), predicted.max()))
+    padding = max((high - low) * 0.05, 0.001)
+    limits = (low - padding, high + padding)
+    parity_ax.scatter(analytical, predicted, s=25, alpha=0.7, label="Test predictions")
+    parity_ax.plot(limits, limits, "k--", linewidth=1, label="Perfect prediction")
+    parity_ax.set(xlim=limits, ylim=limits, xlabel="Actual analytical frequency (GHz)",
+                  ylabel="NN predicted frequency (GHz)", title="NN predicted vs actual frequency")
+    parity_ax.set_aspect("equal", adjustable="box")
+    parity_ax.grid(True, alpha=0.3)
+    parity_ax.legend()
+    parity_fig.tight_layout()
+    parity_fig.savefig(parity_path, dpi=200)
+
+    # Preserve original test order in the CSV so predictions remain traceable.
+    csv_path = output_path.with_name(stem + "_test_predictions.csv")
+    np.savetxt(csv_path,
+               np.column_stack([sample_indices, X_test_mm, analytical, predicted, error_khz]),
+               delimiter=",", header="sample_index,W_mm,L_mm,h_mm,actual_GHz,predicted_GHz,error_kHz",
+               comments="")
+    metrics = {
+        "evaluation_set": "held-out test set",
+        "reference": "PatchFormula.RMA analytical transmission-line model",
+        "samples": len(X_test_mm),
+        "rmse_kHz": float(rmse_khz),
+        "mae_kHz": float(mae_khz),
+        "max_absolute_error_kHz": float(max_error_khz),
+        "mean_signed_error_kHz": float(np.mean(error_khz)),
+    }
+    metrics_path = output_path.with_name(stem + "_test_metrics.json")
+    metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    print(f"Saved difference plot: {difference_path}")
+    print(f"Saved predicted-vs-actual scatter: {parity_path}")
+    print(f"Saved test predictions and metrics: {csv_path}, {metrics_path}")
     return fig
 
 
@@ -384,7 +453,8 @@ if __name__ == "__main__":
     with np.load(dataset_path) as data:
         train_indices = data["train_indices"]
         validation_indices = data["validation_indices"]
-        X_test_mm = data["X_mm"][data["test_indices"]]
+        test_indices = data["test_indices"]
+        X_test_mm = data["X_mm"][test_indices]
         
         dataTrain = {
             "X_mm": data["X_mm"][train_indices],
@@ -394,7 +464,7 @@ if __name__ == "__main__":
             "X_mm": data["X_mm"][validation_indices],
             "Y_GHz": data["Y_GHz"][validation_indices]
         }
-        model = NerualNetwork(hiddenSize = 32, seed=1)
+        model = NeuralNetwork(hiddenSize = 32, seed=1)
     print("Training shapes:", dataTrain["X_mm"].shape, dataTrain["Y_GHz"].shape)
     print("Validation shapes:", dataValidation["X_mm"].shape, dataValidation["Y_GHz"].shape)
     print("Weight shapes:", model.W_hidden.shape, model.W_output.shape)
@@ -407,7 +477,7 @@ if __name__ == "__main__":
     fit_start = perf_counter()
     # Slides 44-48: strong Wolfe line search selects alpha from an initial trial of 1.
     # Full-batch gradients and trial losses use the same 420 training samples.
-    history = model.fit(dataTrain=dataTrain,dataValidation=dataValidation,learning_rate=1.0,epochs=30000,verbose=True)
+    history = model.fit(dataTrain=dataTrain,dataValidation=dataValidation,learning_rate=1.0,epochs=50000,verbose=True)
     if xp is not np:
         xp.cuda.get_current_stream().synchronize()  # Finish GPU work before timing.
     fit_time = perf_counter() - fit_start
@@ -422,7 +492,7 @@ if __name__ == "__main__":
     print(f"Saved model: {model_path}")
 
     design = [35.614, 29.6778, 1.0]
-    restored = NerualNetwork.load(model_path)
+    restored = NeuralNetwork.load(model_path)
     print(
         "Reloaded prediction:",
         restored.predict(design),
@@ -441,5 +511,5 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.savefig(model_path.with_suffix(".png"), dpi=150)
     comparison_path = model_path.with_name(model_path.stem + "_comparison.png")
-    plot_prediction_comparison(restored, X_test_mm, comparison_path)
+    plot_prediction_comparison(restored, X_test_mm, comparison_path, sample_indices=test_indices)
     plt.show()

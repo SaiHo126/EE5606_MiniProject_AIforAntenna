@@ -13,6 +13,7 @@ class RMA:
         self.width_mm = width_mm
         self.length_mm = length_mm
         self.thickness_mm = thickness_mm
+
         self.volume_mm3 = width_mm*length_mm*thickness_mm
         self.RelativePermittivityEff = (RelativePermittivity+1)/2 + (RelativePermittivity-1)*(((1+12 * thickness_mm/width_mm))**(-1/2))/2
         self.lengthDelta_mm = 0.412*thickness_mm *((self.RelativePermittivityEff+0.3)*(width_mm/thickness_mm+0.264))/((self.RelativePermittivityEff-0.258)*(width_mm/thickness_mm+0.8))
@@ -36,6 +37,13 @@ class RMA:
             self.length_mm = np.clip(self.length_mm, AntennaBounds_mm[1,0] , maximum_length)
             self.width_mm = np.clip(self.width_mm, 1.2*self.length_mm, AntennaBounds_mm[0,1])
             self.thickness_mm = np.clip(self.thickness_mm, AntennaBounds_mm[2,0], AntennaBounds_mm[2,1])
+            # Correct rounding at the W/L = 1.2 boundary.
+            if self.width_mm / self.length_mm < 1.2:
+                self.width_mm = np.nextafter(self.width_mm, np.inf)
+
+        # Recalculate all derived values using the final dimensions.
+        self.__init__(self.width_mm, self.length_mm, self.thickness_mm)
+
     def fitness(self, frequencyPlenalty: float) -> float:
         # Define the fitness value of the design, which is a combination of volume and resonance frequency penalty
         return self.volume_mm3/11250 + frequencyPlenalty * abs(self.ResonanceF_GHz - 2.4)

@@ -1,0 +1,34 @@
+%% 06  Particle swarm | flowchart
+%% Intended search loop in run(); default execution currently fails at swarm repair
+flowchart TB
+    start(["Start timer and seeded RNG<br/>Compute velocity limits from bounds"]):::terminal
+    init["Sample positions and velocities<br/>Repair positions; evaluate objective per particle<br/>Initialize personal bests and global best"]:::warning
+    blocked["Current runtime blocker<br/>40 × 3 swarm passed to<br/>repair_design() → RMA(*design)<br/>TypeError"]:::warning
+    continue{"iteration &lt; max<br/>and (iteration &lt; min<br/>or relative improvement &gt; target)?"}:::decision
+    velocity["Update velocity with inertia, personal and global best<br/>v ← ωv + c₁r₁(pbest − x) + c₂r₂(gbest − x)<br/>Clip each component to [−vmax, +vmax]"]:::process
+    move["Move particles: x ← x + v<br/>Repair geometry; evaluate fixed surrogate objective"]:::process
+    best["Update each personal best if its score improves<br/>Update global best from all personal bests<br/>Append global best score and position histories"]:::process
+    progress["Compute relative score improvement; iteration += 1<br/>(J_previous − J_best) / max(|J_previous|, 10⁻¹²)"]:::process
+    return(["Return PSO.Result<br/>Best design, histories,<br/>evaluation count and time"]):::terminal
+    verify["Driver: verify_results()<br/>Compute analytical frequency<br/>Check geometry and target error<br/>Compare surrogate prediction"]:::data
+    report["Driver: record histories / metrics<br/>Summarize NN vs GP<br/>Save comparison.json"]:::data
+    note["The continuation below initialization describes the intended loop after fixing the listed connections.<br/>Current compare_models() also records only the final seed because its reporting block is outside the seed loop."]:::warning
+    start --> init
+    init -->|"actual"| blocked
+    init -.->|"after repairs"| continue
+    continue -->|"Yes"| velocity
+    continue -->|"No"| return
+    velocity --> move
+    move --> best
+    best --> progress
+    progress --> continue
+    return --> verify
+    verify --> report
+    classDef process fill:#edf3ff,stroke:#4267a8,color:#17344b
+    classDef data fill:#eaf6f3,stroke:#297b70,color:#17344b
+    classDef decision fill:#fff5dc,stroke:#aa791e,color:#17344b
+    classDef warning fill:#fff0e9,stroke:#b4532b,color:#17344b
+    classDef terminal fill:#17344b,stroke:#17344b,color:#ffffff
+%% Defaults: 40 particles; min 150 / max 1,000 iterations; improvement target 0.01; ω = 0.7; c₁ = c₂ = 1.6.
+%% vmax = 0.2 × (upper − lower). r₁ and r₂ are independent random arrays shaped (swarm_size, 3).
+%% Stopping uses score improvement; success is checked separately using analytical |f − 2.4| ≤ 0.01 GHz and geometry.

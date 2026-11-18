@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="792pt" viewBox="0 0 864 792" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-18T17:13:18.370576</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 792 
+L 864 792 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 32.4 86.4 
+L 831.6 86.4 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #dce5ed; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 295.2 151.2 
+L 326.146556 151.2 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 320.946556 148.6 
+L 326.146556 151.2 
+L 320.946556 153.8 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 565.2 151.2 
+L 606.946556 151.2 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 601.746556 148.6 
+L 606.946556 151.2 
+L 601.746556 153.8 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 446.4 187.2 
+L 446.4 261.346556 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 449 256.146556 
+L 446.4 261.346556 
+L 443.8 256.146556 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 720 187.2 
+L 720 208.8 
+L 266.4 208.8 
+L 266.4 316.8 
+L 282.946556 316.8 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 277.746556 314.2 
+L 282.946556 316.8 
+L 277.746556 319.4 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 284.4 316.8 
+L 273.6 399.6 
+L 18 399.6 
+L 18 316.8 
+L 27.346556 316.8 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 22.146556 314.2 
+L 27.346556 316.8 
+L 22.146556 319.4 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 608.4 316.8 
+L 639.346556 316.8 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 634.146556 314.2 
+L 639.346556 316.8 
+L 634.146556 319.4 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 734.4 370.8 
+L 734.4 410.4 
+L 266.4 410.4 
+L 266.4 482.4 
+L 282.946556 482.4 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 277.746556 479.8 
+L 282.946556 482.4 
+L 277.746556 485 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 608.4 482.4 
+L 639.346556 482.4 
+" clip-path="url(#p21b9b41e61)" style="fill: none; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 634.146556 479.8 
+L 639.346556 482.4 
+L 634.146556 485 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #63788b; stroke: #63788b; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17344b" x="32.4" y="41.880156" transform="rotate(-0 32.4 41.880156)">05  Particle swarm | architecture</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="68.458359" transform="rotate(-0 32.4 68.458359)">PSO.py · intended surrogate integration; dashed links mark connections needing repair</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 42.48 115.2 
+L 288.72 115.2 
+Q 295.2 115.2 295.2 121.68 
+L 295.2 180.72 
+Q 295.2 187.2 288.72 187.2 
+L 42.48 187.2 
+Q 36 187.2 36 180.72 
+L 36 121.68 
+Q 36 115.2 42.48 115.2 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 334.08 115.2 
+L 558.72 115.2 
+Q 565.2 115.2 565.2 121.68 
+L 565.2 180.72 
+Q 565.2 187.2 558.72 187.2 
+L 334.08 187.2 
+Q 327.6 187.2 327.6 180.72 
+L 327.6 121.68 
+Q 327.6 115.2 334.08 115.2 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #edf3ff; stroke: #4267a8; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 614.88 115.2 
+L 825.12 115.2 
+Q 831.6 115.2 831.6 121.68 
+L 831.6 180.72 
+Q 831.6 187.2 825.12 187.2 
+L 614.88 187.2 
+Q 608.4 187.2 608.4 180.72 
+L 608.4 121.68 
+Q 608.4 115.2 614.88 115.2 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #edf3ff; stroke: #4267a8; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 290.88 262.8 
+L 601.92 262.8 
+Q 608.4 262.8 608.4 269.28 
+L 608.4 364.32 
+Q 608.4 370.8 601.92 370.8 
+L 290.88 370.8 
+Q 284.4 370.8 284.4 364.32 
+L 284.4 269.28 
+Q 284.4 262.8 290.88 262.8 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #edf3ff; stroke: #4267a8; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 35.28 262.8 
+L 245.52 262.8 
+Q 252 262.8 252 269.28 
+L 252 364.32 
+Q 252 370.8 245.52 370.8 
+L 35.28 370.8 
+Q 28.8 370.8 28.8 364.32 
+L 28.8 269.28 
+Q 28.8 262.8 35.28 262.8 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #fff0e9; stroke: #b4532b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 647.28 262.8 
+L 821.52 262.8 
+Q 828 262.8 828 269.28 
+L 828 364.32 
+Q 828 370.8 821.52 370.8 
+L 647.28 370.8 
+Q 640.8 370.8 640.8 364.32 
+L 640.8 269.28 
+Q 640.8 262.8 647.28 262.8 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 290.88 432 
+L 601.92 432 
+Q 608.4 432 608.4 438.48 
+L 608.4 526.32 
+Q 608.4 532.8 601.92 532.8 
+L 290.88 532.8 
+Q 284.4 532.8 284.4 526.32 
+L 284.4 438.48 
+Q 284.4 432 290.88 432 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 647.28 432 
+L 821.52 432 
+Q 828 432 828 438.48 
+L 828 526.32 
+Q 828 532.8 821.52 532.8 
+L 647.28 532.8 
+Q 640.8 532.8 640.8 526.32 
+L 640.8 438.48 
+Q 640.8 432 647.28 432 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #eaf6f3; stroke: #297b70; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 46.08 590.4 
+L 817.92 590.4 
+Q 824.4 590.4 824.4 596.88 
+L 824.4 706.32 
+Q 824.4 712.8 817.92 712.8 
+L 46.08 712.8 
+Q 39.6 712.8 39.6 706.32 
+L 39.6 596.88 
+Q 39.6 590.4 46.08 590.4 
+z
+" clip-path="url(#p21b9b41e61)" style="fill: #fff0e9; stroke: #b4532b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 8.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="748.845937" transform="rotate(-0 32.4 748.845937)">Intended score: J = W·L·h / 11250 + λ |f_predicted − 2.4|. main() sets λ = 1 and analytical tolerance = 0.01 GHz.</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526578" x="32.4" y="768.285937" transform="rotate(-0 32.4 768.285937)">The network is fixed during search. Analytical target error and surrogate prediction error are separate quantities.</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(101.206187 139.815406)">Saved NN and GP models</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(111.516078 154.371242)">NeuralNetwork.load()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(48.969461 169.136969)">GPRskeleton.GaussianProcessRegressor.load()</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(375.420672 138.696516)">main() → compare_models()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(390.630641 154.450148)">NN and GP; seeds 1–5</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(363.911406 169.136969)">Same bounds and score settings</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(676.607086 138.696516)">make_objective()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(645.634805 153.986969)">Volume + predicted-f penalty</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(650.669813 169.136969)">Calls model.predict(design)</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(422.032961 297.840406)">PSO class</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(371.297031 311.871516)">initialize_swarm() / evaluate()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(357.874289 327.021516)">update_velocity() / move_particle()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(365.595266 342.311969)">run(): personal and global bests</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(102.329313 296.721516)">repair_design()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(89.073852 312.011969)">Clip bounds and use</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(92.219055 327.161969)">RMA.geometryFix()</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(69.623461 342.311969)">Currently single-design only</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(707.169453 297.840406)">PSO.Result</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(686.378445 312.011969)">Best design / score</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(670.601141 328.140406)">Position + score histories</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(686.272711 343.290406)">Evaluations + time</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(373.075578 462.321516)">verify_results(design, model)</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(348.427633 477.611969)">Surrogate prediction vs analytical RMA</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(370.335953 492.761969)">Target error + prediction error</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(357.737781 507.911969)">Geometry and frequency tolerance</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(683.271906 462.461969)">Comparison outputs</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(702.011352 477.611969)">History CSVs</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(692.984477 492.761969)">comparison.json</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(683.357914 508.890406)">Success rate + time</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(361.049078 624.086969)">Current integration blockers</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(275.191977 639.096516)">1. compare_models passes object instead of objective to PSO.</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(201.059555 654.246516)">2. initialize_swarm and move_particle pass (swarm_size, 3) arrays to a single-design repair.</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(230.318781 669.536969)">3. evaluate builds an object array from a generator; it never calls self.objective.</text>
+    <text style="font-size: 10.1px; font-family: 'DejaVu Sans'; fill: #17344b" transform="translate(196.726813 684.686969)">4. Verification and saving sit outside the seed loop, so only the final seed would be recorded.</text>
+   </g>
+   <g id="text_14">
+    <g id="patch_19">
+     <path d="M 410.678422 240.278 
+L 482.121578 240.278 
+L 482.121578 227.722 
+L 410.678422 227.722 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 8.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526578" x="446.4" y="236.233984" transform="rotate(-0 446.4 236.233984)">construct + run</text>
+   </g>
+   <g id="text_15">
+    <g id="patch_20">
+     <path d="M 585.810687 215.078336 
+L 666.989312 215.078336 
+L 666.989312 202.521664 
+L 585.810687 202.521664 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 8.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526578" x="626.4" y="211.03432" transform="rotate(-0 626.4 211.03432)">objective callback</text>
+   </g>
+   <g id="text_16">
+    <g id="patch_21">
+     <path d="M 122.175969 405.878336 
+L 151.424031 405.878336 
+L 151.424031 393.321664 
+L 122.175969 393.321664 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 8.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526578" x="136.8" y="401.83432" transform="rotate(-0 136.8 401.83432)">repair</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p21b9b41e61">
+   <rect x="0" y="0" width="864" height="792"/>
+  </clipPath>
+ </defs>
+</svg>

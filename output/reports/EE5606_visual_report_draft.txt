@@ -1,0 +1,103 @@
+Rectangular Microstrip Patch Antenna Optimization
+
+EE5606 Artificial Intelligence for Antennas in Wireless Communication
+
+1 Aim and analytical model
+
+The aim is to minimize effective antenna volume while maintaining resonance near 2.4 GHz. Part I uses an analytical genetic algorithm (GA); Part II trains neural-network (NN) and Gaussian-process (GP) surrogates and uses particle swarm optimization (PSO). The implementation emphasis is the manually developed GeneticAlgorithm.py, NeuralNetwork.py and PSO.py. GP is a supporting comparison implemented with scikit-learn, rather than the main algorithm-development focus. The NN-GP comparison remains a worksheet requirement [1].
+
+The design is [W, L, h] in mm, with W in [25, 50], L in [25, 45], h in [1, 5] and W/L ≥ 1.2. FR-4 is represented by ε_r = 4.4 and c = 3 × 10^8 m/s. The worksheet transmission-line equations are [1]:
+
+ε_eff = (ε_r + 1)/2 + [(ε_r − 1)/2](1 + 12h/W)^−1/2
+
+ΔL = 0.412h [(ε_eff + 0.3)(W/h + 0.264)]
+/ [(ε_eff − 0.258)(W/h + 0.8)]
+
+L_eff = L + 2ΔL,       f = c/(2L_eff√ε_eff),       V = WLh
+
+The effective length is converted to metres for frequency calculation; the public interfaces return GHz and volume is in mm^3. The reference [38, 30, 1.6] mm gives 2.357548542 GHz and 1824 mm^3.
+
+Figure 1. Antenna schematic and the two required pipelines. Full-wave simulation is not required; the schematic is not a simulated antenna.
+
+2 Shared objective and acceptance
+
+J = V/11250 + λ |f_eval − 2.4|,       λ = 1
+
+Here f_eval is the analytical or surrogate frequency in GHz. The scale 11250 mm^3, penalty λ and acceptance tolerance ±0.01 GHz are design choices. Geometry must be valid and analytical target deviation must be ≤10 MHz; a low surrogate score alone does not establish success.
+
+
+=================================================================
+
+3 Genetic algorithm and neural network implementation
+
+GA. Each chromosome holds [W, L, h]. Tournament selection chooses lower-score parents, arithmetic crossover blends them using one random coefficient, and Gaussian mutation perturbs each coordinate. Geometry repair enforces the bounds and W/L constraint. One distinct elite is retained; duplicates are replaced with fresh feasible designs. The saved study uses population 6, tournament size 2, crossover probability 0.8, mutation probability 0.2 and mutation scale 10% of each coordinate range. It stops below 1% best-score change after at least 100 generations. Ten seeds (42 and 0-8) all satisfy analytical acceptance [2].
+
+Figure 2. Saved GA histories; the darker curve is the lowest-score run (seed 5). All ten runs completed 100 generations.
+
+Dataset. Uniform sampling rejects W/L < 1.2. The 600 feasible designs are labelled analytically and split into 420 training, 90 validation and 90 test samples, with sampling and split seeds both 1. Scaling uses training-set statistics only; both surrogates share the split.
+
+Figure 3. Saved NN architecture. Scaling is retained with the weights, so prediction inputs remain in mm and outputs in GHz.
+
+NN. The fully connected 3-32-1 model uses tanh hidden neurons, a linear output and Xavier initialization. For N samples, X has shape (N, 3), hidden activations (32, N), and output (N, 1). Its 161 weights and biases are trained with handwritten forward propagation, mean squared error, backpropagation and parameter updates:
+
+z_y = W_2 tanh(W_1x̃ + b_1) + b_2,       θ ← θ − α grad(MSE)
+
+Training uses standardized targets; prediction reverses target scaling to return GHz.
+
+Backpropagation uses tanh derivative 1 − a^2 and sums each bias gradient over samples. A strong Wolfe line search chooses α with initial trial 1, decrease coefficient 10^−4 and curvature coefficient 0.1, using bracketing and bisection with a 40-iteration limit. Each update uses all 420 training samples. GPU array operations use CuPy; no automatic differentiation is used.
+
+
+=================================================================
+
+4 Surrogate training and prediction accuracy
+
+The saved NN uses initialization seed 1 and completes 30,000 epochs; the best validation checkpoint is epoch 29,998. Training stops at the epoch limit, without reaching the 10 kHz validation goal. Other stopping conditions are 2000 epochs without improvement or a stalled line search. The best checkpoint is restored before testing [3].
+
+Figure 4. NN training/validation RMSE and signed test error (prediction minus analytical frequency), from saved histories and predictions. Test size: 90.
+
+GP benchmark. Following GPR.py, scikit-learn fits training-only StandardScaler and an RBF GaussianProcessRegressor: initial length scales [1, 1, 1], alpha = 10^−8, normalize_y = True. Marginal-likelihood optimization [5] gives scales [11.3, 2.26, 4.74]. Fitting took 0.183 s. Settings were fixed before testing; the NN checkpoint was reused without retraining [4].
+
+Prediction error (MHz) | NN | Library GP
+Validation RMSE | 0.699299 | 0.007522
+Test RMSE | 0.827545 | 0.009480
+Test MAE | 0.641820 | 0.006050
+Maximum absolute test error | 3.549000 | 0.057057
+
+GP has approximately 87 times lower test RMSE. The NN is nevertheless accurate enough for the selected final-design tolerance. Test error measures approximation quality, whereas final analytical target deviation measures whether optimization meets 2.4 GHz; these are different quantities.
+
+5 Particle swarm optimization
+
+PSO.py keeps the surrogate fixed and accepts an objective callback. Forty repaired particles store personal/global bests. Velocity is updated and clipped to 20% of each coordinate range; positions are moved, repaired and scored before updating the best records. Both models use seeds 1-5, inertia 0.7 and cognitive/social coefficients 1.6. Stopping uses <1% improvement after 150 iterations, capped at 1000. Every run completed 150 iterations and 6040 evaluations [4].
+
+v ← 0.7v + 1.6r_1 × (p_best − x) + 1.6r_2 × (g_best − x)
+
+Then x ← repair(x + v); products are elementwise and r_1, r_2 are uniform random vectors on [0, 1].
+
+
+=================================================================
+
+6 Optimization results and discussion
+
+Figure 5. CPU NN and library-GP PSO convergence: median across five seeds, with shaded minimum-to-maximum ranges [4].
+
+Quantity | GA | NN PSO | GP PSO
+W / L (mm) | 35.61336 /
+29.67780 | 35.62485 /
+29.68737 | 35.61422 /
+29.67851
+Volume (mm^3) | 1056.926 | 1057.608 | 1056.977
+Analytical f (GHz) | 2.399999867 | 2.399232188 | 2.399942681
+Target deviation (MHz) | 0.000133 | 0.767812 | 0.057319
+Mean search time (s) | Not saved | 0.131 | 1.550
+
+The table uses best-score GA and seed-1 PSO, with five-seed mean times from the new CPU comparison. Success rates are GA 10/10, NN 5/5 and GP 5/5. All designs have h = 1 mm and W/L = 1.2. Both surrogate predictions are ≈2.4 GHz, giving prediction errors of 0.767812 MHz (NN) and 0.057319 MHz (GP).
+
+GPU latency. I initially loaded the trained NN on GPU for PSO. Five-seed searches averaged 2.080 s versus 0.142 s on CPU with identical weights: 14.6× longer [6]. Each particle prediction transfers three inputs to GPU; returning a Python float synchronizes the CPU-visible result. Repeated transfers, kernel launches and synchronization can dominate this tiny network. Transfer delay was not separately profiled, so this remains the likely explanation. CPU inference requires no retraining; batching predictions could reduce transfer overhead.
+
+Library GP is more accurate but slower in this scalar-call CPU comparison. Timings exclude fitting/loading and final verification; NN training and data-generation times are unavailable. Repair also computes analytical RMA quantities internally. These results do not establish an end-to-end speedup over the inexpensive analytical formula.
+
+7 Conclusion
+
+GA, NN and PSO produce analytically valid designs near 2.4 GHz and 1057 mm^3. GP supplies an accurate library benchmark. CPU inference reduces NN latency. Global optimality and radiation performance are not established.
+
+Sources: [1] EE5606 worksheet, pp. 1-3. [2-4] results/ga/part1_review.json; results/nn; results/report_library_gp. [5] scikit-learn GPR documentation. [6] results/pso_comparison and pso_comparison_cpu.

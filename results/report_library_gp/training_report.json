@@ -1,0 +1,55 @@
+{
+  "gp_settings": "Exact settings in src/GPR.py; no test-set tuning",
+  "fit_seconds": 0.18301830000018526,
+  "selected_kernel": "RBF(length_scale=[11.3, 2.26, 4.74])",
+  "warnings": [],
+  "versions": {
+    "python": "3.12.10",
+    "numpy": "2.5.4",
+    "sklearn": "1.9.1"
+  },
+  "data_seed": 1,
+  "split_seed": 1,
+  "test_samples": 90,
+  "source_hashes": {
+    "src\\GPR.py": "d0e8b70e66ecaf4262fe6e4747c6492d342f3269599248a9c26619eb2be90887",
+    "src\\PSO.py": "3a3e073af8f740fd069089becad2e61c7200c3493e3408a81d9d315a34cba050",
+    "src\\NeuralNetwork.py": "faceb19394c91043160430054943613ab7591e0c837ca3996be5bcc2e7730186",
+    "antennaSample_training.npz": "8b51f85ceda5bba5d0045096f81f38c50945b836adddf488dd0215603eb53aad"
+  },
+  "NN": {
+    "train": {
+      "rmse_MHz": 0.7932373756255727,
+      "mae_MHz": 0.6091549948400401,
+      "max_error_MHz": 4.232338479082998
+    },
+    "validation": {
+      "rmse_MHz": 0.6992989596629464,
+      "mae_MHz": 0.5929387547135517,
+      "max_error_MHz": 1.5289340227617743
+    },
+    "test": {
+      "rmse_MHz": 0.8275445512938694,
+      "mae_MHz": 0.6418196764412304,
+      "max_error_MHz": 3.549000227931476
+    }
+  },
+  "GP": {
+    "train": {
+      "rmse_MHz": 0.0071507283352828755,
+      "mae_MHz": 0.004856421297066189,
+      "max_error_MHz": 0.05069861996709335
+    },
+    "validation": {
+      "rmse_MHz": 0.007522028504719314,
+      "mae_MHz": 0.005224616982597081,
+      "max_error_MHz": 0.0338738439547015
+    },
+    "test": {
+      "rmse_MHz": 0.009480268600492866,
+      "mae_MHz": 0.0060499216797775075,
+      "max_error_MHz": 0.05705677523160091
+    }
+  },
+  "timing_scope": "New CPU runs; fit timing excludes scaling, search excludes fitting/loading/final verification."
+}

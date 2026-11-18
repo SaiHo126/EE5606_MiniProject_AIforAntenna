@@ -1,0 +1,9 @@
+{
+  "evaluation_set": "held-out test set",
+  "reference": "PatchFormula.RMA analytical transmission-line model",
+  "samples": 90,
+  "rmse_kHz": 827.5445512938716,
+  "mae_kHz": 641.8196764412255,
+  "max_absolute_error_kHz": 3549.000227931476,
+  "mean_signed_error_kHz": 157.14703349222324
+}

@@ -1,0 +1,53 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>EE5606 algorithm diagrams</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f8;color:#17344b;font:16px/1.6 system-ui,Segoe UI,sans-serif}
+main{max-width:1180px;margin:auto;padding:36px 24px}h1{font-size:34px;line-height:1.2;margin-bottom:12px}
+h2{margin:48px 0 6px}h3{margin:0}a{color:#245a91}nav{display:flex;gap:24px;flex-wrap:wrap;margin:24px 0}
+article{background:white;border:1px solid #dbe5ec;border-radius:12px;margin:22px 0;padding:20px}
+article img{width:100%;height:auto;display:block}.downloads{font-size:14px;margin:6px 0 16px}
+.note{border-left:4px solid #b4532b;background:#fff0e9;padding:16px 20px}.muted{color:#526578;font-size:14px}
+table{width:100%;border-collapse:collapse;background:white;margin:18px 0}th,td{text-align:left;vertical-align:top;padding:12px;border:1px solid #dbe5ec}
+code{font-size:.9em} @media print{body{background:white}main{padding:0}nav,.downloads{display:none}article{break-before:page;border:0;padding:0}article img{max-height:90vh;object-fit:contain}h2{break-before:page}}
+</style></head><body><main>
+<p class="muted">EE5606 · RECTANGULAR MICROSTRIP PATCH ANTENNA · SOURCE SNAPSHOT 18 NOV 2026</p>
+<h1>Algorithm architectures &amp; flowcharts</h1>
+<p>Six diagrams explain the current GA, neural network and PSO files. Architecture diagrams show components and data;
+flowcharts show execution order, decisions and loops. Use SVG for scalable report/slide graphics, PNG for easy insertion,
+or edit the Mermaid (.mmd) sources in a Mermaid-compatible editor. This gallery works offline.</p>
+<nav><a href="#GeneticAlgorithm">Genetic algorithm</a><a href="#NeuralNetwork">Neural network</a><a href="#PSO">Particle swarm</a><a href="#notes">Code notes</a></nav>
+<div class="note"><strong>Implementation status:</strong> GA and NN diagrams describe their current code.
+PSO diagrams label the intended continuation and identify incomplete connections. The source algorithms were not modified.</div>
+<p>All design vectors use <code>[W_mm, L_mm, h_mm]</code>. Bounds are W = 25–50 mm, L = 25–45 mm,
+h = 1–5 mm, with W/L ≥ 1.2. Frequencies are in GHz; the target is 2.4 GHz.</p>
+<section id="GeneticAlgorithm"><h2><a href="../../src/GeneticAlgorithm.py">GeneticAlgorithm.py</a></h2><p>Direct analytical optimization</p><article><h3>01  Genetic algorithm | architecture</h3>
+<p class="downloads"><a href="ga_architecture.svg">SVG</a> · <a href="ga_architecture.png">PNG</a> · <a href="ga_architecture.mmd">Editable Mermaid</a></p>
+<a href="ga_architecture.svg"><img src="ga_architecture.svg" alt="01  Genetic algorithm | architecture"></a></article><article><h3>02  Genetic algorithm | flowchart</h3>
+<p class="downloads"><a href="ga_flowchart.svg">SVG</a> · <a href="ga_flowchart.png">PNG</a> · <a href="ga_flowchart.mmd">Editable Mermaid</a></p>
+<a href="ga_flowchart.svg"><img src="ga_flowchart.svg" alt="02  Genetic algorithm | flowchart"></a></article></section><section id="NeuralNetwork"><h2><a href="../../src/NeuralNetwork.py">NeuralNetwork.py</a></h2><p>Frequency surrogate: architecture and training</p><article><h3>03  Neural network | architecture</h3>
+<p class="downloads"><a href="nn_architecture.svg">SVG</a> · <a href="nn_architecture.png">PNG</a> · <a href="nn_architecture.mmd">Editable Mermaid</a></p>
+<a href="nn_architecture.svg"><img src="nn_architecture.svg" alt="03  Neural network | architecture"></a></article><article><h3>04  Neural network | training flowchart</h3>
+<p class="downloads"><a href="nn_flowchart.svg">SVG</a> · <a href="nn_flowchart.png">PNG</a> · <a href="nn_flowchart.mmd">Editable Mermaid</a></p>
+<a href="nn_flowchart.svg"><img src="nn_flowchart.svg" alt="04  Neural network | training flowchart"></a></article></section><section id="PSO"><h2><a href="../../src/PSO.py">PSO.py</a></h2><p>Surrogate optimization: intended workflow and current blockers</p><article><h3>05  Particle swarm | architecture</h3>
+<p class="downloads"><a href="pso_architecture.svg">SVG</a> · <a href="pso_architecture.png">PNG</a> · <a href="pso_architecture.mmd">Editable Mermaid</a></p>
+<a href="pso_architecture.svg"><img src="pso_architecture.svg" alt="05  Particle swarm | architecture"></a></article><article><h3>06  Particle swarm | flowchart</h3>
+<p class="downloads"><a href="pso_flowchart.svg">SVG</a> · <a href="pso_flowchart.png">PNG</a> · <a href="pso_flowchart.mmd">Editable Mermaid</a></p>
+<a href="pso_flowchart.svg"><img src="pso_flowchart.svg" alt="06  Particle swarm | flowchart"></a></article></section>
+<section id="notes"><h2>Code notes and interpretation</h2>
+<table><thead><tr><th>Source location</th><th>What the diagrams reflect</th></tr></thead><tbody>
+<tr><td>GeneticAlgorithm.py:44–45</td><td>The config constructor assigns terminationCondition = 0.01 and frequencyPenalty = 1 regardless of its arguments. The driver's requested penalty 10000 is therefore not applied.</td></tr>
+<tr><td>GeneticAlgorithm.py:169–179</td><td>Stopping checks the change between consecutive population-best scores after the minimum generation count. There is no maximum-generation cap or frequency-feasibility stopping check.</td></tr>
+<tr><td>NeuralNetwork.py:67–98, 271–275</td><td>The class accepts a configurable hidden width; the driver uses 32. Public predict() takes one design in millimetres, applies saved scaling, then returns one frequency in GHz.</td></tr>
+<tr><td>NeuralNetwork.py:129–152, 225–241</td><td>Strong Wolfe search evaluates trial weights along the negative gradient and leaves the accepted parameters in place. Do not add a second gradient update on this path. A RuntimeError restores the pre-search parameters and flags training as stalled; other exceptions propagate.</td></tr>
+<tr><td>NeuralNetwork.py:243–269</td><td>Training records losses in GHz² and returns the parameters from the best validation epoch. The test split is used only for evaluation after training.</td></tr>
+<tr><td>PSO.py:65–74, 85–86</td><td>initialize_swarm() passes a (40, 3) array to a repair function expecting one (3,) design. A focused check reproduced TypeError at RMA(*design). move_particle() uses the same non-batched repair callback. evaluate() returns a zero-dimensional object array containing a generator rather than numeric scores; it never calls self.objective.</td></tr>
+<tr><td>PSO.py:225</td><td>The optimizer receives Python's built-in object rather than the objective closure created by make_objective(). The dashed objective link marks the intended connection.</td></tr>
+<tr><td>PSO.py:231–292</td><td>Verification, run recording and history saving are outside the inner seed loop. After other blockers are fixed, this placement would retain only the final seed for each model, not all five runs.</td></tr>
+</tbody></table>
+<p><strong>Score versus success.</strong> Both score formulas are V/11250 + λ|f − 2.4|. GA uses analytical f;
+the PSO objective is designed to use a frozen surrogate's f. PSO verification separately reports
+analytical target error |f_analytical − 2.4| and surrogate prediction error |f_predicted − f_analytical|.
+A converged score is not evidence of frequency feasibility.</p>
+<p class="muted">These are code diagrams, not experimental results. No model training or optimization experiment was run to generate them.
+PNG/SVG text bounds are checked by the generator. <a href="generate_diagrams.py">Regeneration script</a> · <a href="source_snapshot.json">Source hashes</a></p>
+</section></main></body></html>

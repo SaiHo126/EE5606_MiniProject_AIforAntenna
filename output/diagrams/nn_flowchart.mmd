@@ -1,0 +1,34 @@
+%% 04  Neural network | training flowchart
+%% Default __main__ path: full-batch training with Strong Wolfe line search
+flowchart TB
+    data["Load antennaSample_training.npz<br/>Use saved training, validation and test indices"]:::data
+    init["Initialize 3 → 32 → 1 network (seed 1)<br/>Xavier weights and zero biases"]:::process
+    scale["Fit X and Y mean / standard deviation on training only<br/>Transform training and validation data"]:::process
+    grad["Forward pass on the full training batch<br/>Manual backpropagation of standardized MSE"]:::process
+    line["Search along d = −gradient; initial step α = 1<br/>Double trial α to bracket; bisect (zoom) as needed<br/>Accept sufficient decrease AND Strong Wolfe curvature"]:::process
+    accepted{"Nonzero step<br/>accepted?"}:::decision
+    stall["Flag stalled training<br/>On RuntimeError: restore<br/>pre-search parameters"]:::warning
+    metrics["Evaluate current training and validation MSE (GHz²)<br/>Append loss histories; if validation improves:<br/>save best parameters and epoch"]:::process
+    stop{"Target RMSE reached,<br/>patience exhausted, stalled,<br/>or epoch limit reached?"}:::decision
+    restore["Restore the best validation parameters; return history"]:::process
+    test["Save NPZ model and training plot; reload model<br/>Evaluate held-out test designs against RMA<br/>Save comparison plots, predictions CSV and metrics JSON"]:::data
+    data --> init
+    init --> scale
+    scale --> grad
+    grad --> line
+    line --> accepted
+    accepted -->|"Yes"| metrics
+    accepted -->|"No"| stall
+    stall --> metrics
+    metrics --> stop
+    stop -->|"No: next epoch"| grad
+    stop -->|"Yes"| restore
+    restore --> test
+    classDef process fill:#edf3ff,stroke:#4267a8,color:#17344b
+    classDef data fill:#eaf6f3,stroke:#297b70,color:#17344b
+    classDef decision fill:#fff5dc,stroke:#aa791e,color:#17344b
+    classDef warning fill:#fff0e9,stroke:#b4532b,color:#17344b
+    classDef terminal fill:#17344b,stroke:#17344b,color:#ffffff
+%% __main__: at most 50,000 epochs; best validation RMSE < 10 kHz; patience = 2,000 epochs without improvement.
+%% fit() also supports minibatches and fixed-rate gradient updates when line_search=False; these are not the main path.
+%% The test split is evaluated after training. Line search itself applies the accepted update; there is no second update.

@@ -1,0 +1,9 @@
+{
+  "reviewed_date": "2026-11-18",
+  "sources": {
+    "src/GeneticAlgorithm.py": "253ac182cb635d8f0112058489759f9a5fee0d96bd27b2bc4847f26267354c5e",
+    "src/NeuralNetwork.py": "385eca410b83f3aed2e6e69bf1fc1ab0cfe1f99a938838c081121a2d4588ea1b",
+    "src/PSO.py": "eb39ce4d41bc5ba7b993eb02cbb08ac65afb31d16a62902cf3419a969feee078",
+    "src/PatchFormula.py": "3a123eb37e6b09f4dc16d965f9782675c786bdcbe14a749400f87fae1d1e77dc"
+  }
+}

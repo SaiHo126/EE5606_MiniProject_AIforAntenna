@@ -91,6 +91,22 @@ class GPTests(unittest.TestCase):
 
 
 class PSOTests(unittest.TestCase):
+    def test_rma_geometry_fix_refreshes_all_derived_values(self):
+        antenna = RMA(25., 45., 1.)
+        old_volume = antenna.volume_mm3
+        old_frequency = antenna.ResonanceF_GHz
+        antenna.geometryFix()
+        self.assertTrue(antenna.geometryCheck())
+        self.assertNotEqual(antenna.volume_mm3, old_volume)
+        self.assertNotEqual(antenna.ResonanceF_GHz, old_frequency)
+        antenna.thickness_mm = 2.
+        # Refresh even when manually changed dimensions already satisfy bounds.
+        antenna.geometryFix()
+        reference = RMA(antenna.width_mm, antenna.length_mm, antenna.thickness_mm)
+        for name in ('volume_mm3', 'RelativePermittivityEff', 'lengthDelta_mm',
+                     'lengthEff_mm', 'ResonanceF_GHz'):
+            self.assertEqual(getattr(antenna, name), getattr(reference, name))
+
     def test_known_sphere_convergence_and_reproducibility(self):
         objective = lambda x: float(np.sum((x - [0.3, -0.2])**2))
         config = PSOConfig(swarm_size=30, iterations=120, seed=7)

@@ -1,0 +1,25 @@
+%% 01  Genetic algorithm | architecture
+%% GeneticAlgorithm.py · analytical optimization · lower fitness is better
+flowchart TB
+    settings["Bounds + config + RNG seed<br/>Design genes: [W, L, h] in mm"]:::data
+    run(["GeneticAlgorithm.run()<br/>Population and convergence control"]):::terminal
+    result["results<br/>Design, score, history, time"]:::data
+    initial["initializePopulation()<br/>Uniform sampling within bounds<br/>Repair antenna geometry"]:::process
+    next["create_next_generation()<br/>Unique elites + offspring<br/>Replace duplicates randomly"]:::process
+    physics["PatchFormula.RMA<br/>Analytical frequency + volume<br/>fitness() + geometryFix()<br/>W/L ≥ 1.2 and box bounds"]:::data
+    operators["select_parent() → crossover() → mutate()<br/>Tournament → arithmetic blend → Gaussian change<br/>Clip genes, repair geometry, refresh RMA"]:::process
+    settings --> run
+    run --> result
+    run --> initial
+    run --> next
+    run --> physics
+    next --> operators
+    operators -->|"repair / score"| physics
+    classDef process fill:#edf3ff,stroke:#4267a8,color:#17344b
+    classDef data fill:#eaf6f3,stroke:#297b70,color:#17344b
+    classDef decision fill:#fff5dc,stroke:#aa791e,color:#17344b
+    classDef warning fill:#fff0e9,stroke:#b4532b,color:#17344b
+    classDef terminal fill:#17344b,stroke:#17344b,color:#ffffff
+%% Fitness: J = W·L·h / 11250 + λ |f_analytical − 2.4|. Frequency is in GHz; volume is in mm³.
+%% Current config constructor forces λ = 1 and terminationCondition = 0.01, ignoring the supplied values.
+%% The __main__ driver repeats ten seeds, plots histories, and displays the lowest-fitness final result.

@@ -1,0 +1,356 @@
+{
+  "penalty_weight": 1.0,
+  "frequency_tolerance_GHz": 0.01,
+  "target_GHz": 2.4,
+  "objective": "volume_mm3/11250 + penalty_weight*abs(predicted_GHz-2.4)",
+  "runs": [
+    {
+      "model": "NN",
+      "seed": 1,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 1,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.0940096079860717,
+      "objective_evaluations": 6040,
+      "search_seconds": 1.8873122999993939,
+      "design_mm": [
+        35.62484677587717,
+        29.687372313230973,
+        1.0
+      ],
+      "volume_mm3": 1057.6080898372716,
+      "predicted_GHz": 2.4000000000005364,
+      "analytical_GHz": 2.3992321881416014,
+      "target_error_MHz": 0.7678118583984705,
+      "prediction_error_MHz": 0.7678118589349303,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 0.0003141000015602913,
+      "analytical_verification_seconds": 1.0599998859106563e-05
+    },
+    {
+      "model": "NN",
+      "seed": 2,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 2,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.09400960799509896,
+      "objective_evaluations": 6040,
+      "search_seconds": 2.1191710000002786,
+      "design_mm": [
+        35.624846776016135,
+        29.68737231334678,
+        1.0
+      ],
+      "volume_mm3": 1057.6080898455227,
+      "predicted_GHz": 2.3999999999911696,
+      "analytical_GHz": 2.3992321881323155,
+      "target_error_MHz": 0.7678118676843759,
+      "prediction_error_MHz": 0.7678118588541061,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 0.0002976000014314195,
+      "analytical_verification_seconds": 1.0300000212737359e-05
+    },
+    {
+      "model": "NN",
+      "seed": 3,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 3,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.0940096079864665,
+      "objective_evaluations": 6040,
+      "search_seconds": 2.033972100000028,
+      "design_mm": [
+        35.62484677589736,
+        29.687372313247803,
+        1.0
+      ],
+      "volume_mm3": 1057.6080898384705,
+      "predicted_GHz": 2.3999999999991752,
+      "analytical_GHz": 2.3992321881402523,
+      "target_error_MHz": 0.7678118597476136,
+      "prediction_error_MHz": 0.7678118589229399,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 0.000553300000319723,
+      "analytical_verification_seconds": 7.900000127847306e-06
+    },
+    {
+      "model": "NN",
+      "seed": 4,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 4,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.0940096079860619,
+      "objective_evaluations": 6040,
+      "search_seconds": 2.1142249000004085,
+      "design_mm": [
+        35.62484677587733,
+        29.68737231323111,
+        1.0
+      ],
+      "volume_mm3": 1057.608089837281,
+      "predicted_GHz": 2.4000000000005257,
+      "analytical_GHz": 2.3992321881415917,
+      "target_error_MHz": 0.7678118584082405,
+      "prediction_error_MHz": 0.7678118589340421,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 0.0003103000017290469,
+      "analytical_verification_seconds": 9.999999747378752e-06
+    },
+    {
+      "model": "NN",
+      "seed": 5,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 5,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.0940096079891952,
+      "objective_evaluations": 6040,
+      "search_seconds": 2.247229500000685,
+      "design_mm": [
+        35.62484677582689,
+        29.687372313189076,
+        1.0
+      ],
+      "volume_mm3": 1057.6080898342864,
+      "predicted_GHz": 2.400000000003925,
+      "analytical_GHz": 2.399232188144962,
+      "target_error_MHz": 0.7678118550380475,
+      "prediction_error_MHz": 0.767811858963352,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 0.00034950000008393545,
+      "analytical_verification_seconds": 9.599998520570807e-06
+    },
+    {
+      "model": "GP",
+      "seed": 1,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 1,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.09395024499791012,
+      "objective_evaluations": 6040,
+      "search_seconds": 0.2670637999999599,
+      "design_mm": [
+        35.613597227104655,
+        29.677997689253882,
+        1.0
+      ],
+      "volume_mm3": 1056.9402562120304,
+      "predicted_GHz": 2.400000000001285,
+      "analytical_GHz": 2.3999841169799403,
+      "target_error_MHz": 0.01588302005961495,
+      "prediction_error_MHz": 0.015883021344809123,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 2.9499999072868377e-05,
+      "analytical_verification_seconds": 4.19999923906289e-06
+    },
+    {
+      "model": "GP",
+      "seed": 2,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 2,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.09395024500472395,
+      "objective_evaluations": 6040,
+      "search_seconds": 0.25606600000173785,
+      "design_mm": [
+        35.61359722851639,
+        29.677997690430328,
+        1.0
+      ],
+      "volume_mm3": 1056.9402562958253,
+      "predicted_GHz": 2.3999999999993493,
+      "analytical_GHz": 2.399984116885549,
+      "target_error_MHz": 0.015883114450776503,
+      "prediction_error_MHz": 0.01588311380018581,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 2.840000161086209e-05,
+      "analytical_verification_seconds": 3.0000010156072676e-06
+    },
+    {
+      "model": "GP",
+      "seed": 3,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 3,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.09395024500603277,
+      "objective_evaluations": 6040,
+      "search_seconds": 0.26007949999984703,
+      "design_mm": [
+        35.613597228764455,
+        29.67799769063705,
+        1.0
+      ],
+      "volume_mm3": 1056.9402563105496,
+      "predicted_GHz": 2.3999999999993493,
+      "analytical_GHz": 2.3999841168689633,
+      "target_error_MHz": 0.015883131036620313,
+      "prediction_error_MHz": 0.01588313038602962,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 3.04000004689442e-05,
+      "analytical_verification_seconds": 3.5000011848751456e-06
+    },
+    {
+      "model": "GP",
+      "seed": 4,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 4,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.09395024500258745,
+      "objective_evaluations": 6040,
+      "search_seconds": 0.257602699999552,
+      "design_mm": [
+        35.61359722799117,
+        29.677997689992644,
+        1.0
+      ],
+      "volume_mm3": 1056.9402562646503,
+      "predicted_GHz": 2.400000000001285,
+      "analytical_GHz": 2.3999841169206673,
+      "target_error_MHz": 0.015883079332645877,
+      "prediction_error_MHz": 0.01588308061784005,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 2.9099999665049836e-05,
+      "analytical_verification_seconds": 3.200000719516538e-06
+    },
+    {
+      "model": "GP",
+      "seed": 5,
+      "config": {
+        "swarm_size": 40,
+        "iterations_min": 150,
+        "iterations_max": 1000,
+        "inertia": 0.7,
+        "cognitive": 1.6,
+        "social": 1.6,
+        "seed": 5,
+        "target": 0.01,
+        "velocity_fraction": 0.2
+      },
+      "iterations_completed": 150,
+      "best_score": 0.09395024501064765,
+      "objective_evaluations": 6040,
+      "search_seconds": 0.2652856000004249,
+      "design_mm": [
+        35.613597228968466,
+        29.677997690807057,
+        1.0
+      ],
+      "volume_mm3": 1056.9402563226588,
+      "predicted_GHz": 2.400000000004189,
+      "analytical_GHz": 2.399984116855322,
+      "target_error_MHz": 0.01588314467770857,
+      "prediction_error_MHz": 0.015883148866802088,
+      "geometry_feasible": true,
+      "success": true,
+      "final_prediction_seconds": 2.9799999538226984e-05,
+      "analytical_verification_seconds": 3.700000888784416e-06
+    }
+  ],
+  "summary": {
+    "NN": {
+      "runs": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "mean_search_seconds": 2.080381960000159,
+      "mean_target_error_MHz": 0.7678118598553496,
+      "mean_successful_volume_mm3": 1057.6080898385665
+    },
+    "GP": {
+      "runs": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "mean_search_seconds": 0.26121952000030435,
+      "mean_target_error_MHz": 0.015883097911473243,
+      "mean_successful_volume_mm3": 1056.9402562811429
+    }
+  }
+}

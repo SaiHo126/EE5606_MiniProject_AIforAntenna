@@ -7,17 +7,23 @@ From the project root, first train the GP with GPRskeleton.py, then:
 For your ReLU NN use --nn-model results/nn/nn_model_relu_h16_gpu.npz.
 Saved ReLU models run on CPU here, including those trained on GPU.
 
-Read in this order: PSOConfig -> ParticleSwarmOptimizer.run ->
-repair_antenna_design -> make_antenna_objective -> verify_design -> main.
+Build/read in this order (matching the STEP comments below):
+1. PSOConfig: settings and units.
+2. geometry_is_feasible / repair_antenna_design: enforce RMA's geometry rules.
+3. make_antenna_objective: use RMA's score formula with a surrogate frequency.
+4-9. ParticleSwarmOptimizer.run: initialize, remember, move, score, return.
+10. verify_design: use RMA's analytical frequency after the search.
+Finally, main connects the saved models, optimizer, and output files.
 
 Each particle is one possible design [W, L, h] in mm. Position and velocity
 arrays have shape (swarm_size, 3); scores have shape (swarm_size,).
 The generic optimizer accepts an objective callable, so it can also solve a
 simple test problem. It contains no antenna physics or surrogate training.
 
-Part II uses a FIXED trained surrogate for every search evaluation. Only after
-the search do we call PatchFormula.RMA for analytical verification. The PDF
-requires both NN and GP comparisons, but does not specify the settings below.
+Part II uses a FIXED trained surrogate for every search evaluation. Constructing
+RMA evaluates the analytical formula, so use it only for the reference check
+and final verification, after searching with array-based geometry and scoring.
+Use the same settings for both NN and GP comparisons.
 """
 
 import argparse
@@ -40,14 +46,15 @@ else:
 
 @dataclass(frozen=True)
 class PSOConfig:
+    # STEP 1: settings. One particle has three coordinates [W, L, h] in mm.
     """Starting choices, not lecturer requirements. Use identical NN/GP settings."""
-    swarm_size: int = 40
-    iterations: int = 150
-    inertia: float = 0.7
-    cognitive: float = 1.6
-    social: float = 1.6
-    velocity_fraction: float = 0.2
-    seed: int = 1
+    swarm_size: int = 40           # Number of candidate designs, N.
+    iterations: int = 150          # Number of movement rounds, not a tolerance.
+    inertia: float = 0.7           # w: retains some previous velocity.
+    cognitive: float = 1.6         # c1: attraction to each particle's own best.
+    social: float = 1.6            # c2: attraction to the whole swarm's best.
+    velocity_fraction: float = 0.2 # Maximum step as a fraction of each bound span.
+    seed: int = 1                  # Makes random choices reproducible.
 
     def __post_init__(self):
         for name in ("swarm_size", "iterations", "seed"):
@@ -120,6 +127,8 @@ class ParticleSwarmOptimizer:
         """
         started = perf_counter()
         cfg = self.config
+        # STEP 4: create positions and velocities, both shape (N, D).
+        # D=3 for antennas. Repair even the initial positions before scoring.
         rng = np.random.default_rng(cfg.seed)  # A run is reproducible from its seed.
         span = self.bounds[:, 1] - self.bounds[:, 0]
         vmax = cfg.velocity_fraction * span
@@ -129,6 +138,8 @@ class ParticleSwarmOptimizer:
         scores = self._evaluate(positions)
         if not np.any(np.isfinite(scores)):
             raise ValueError("No finite objective score in the initial swarm.")
+        # STEP 5: remember each personal best (N, D) and the global best (D,).
+        # Copies preserve these memories when the current positions move.
         personal_best = positions.copy()
         personal_scores = scores.copy()
         best_index = int(np.argmin(personal_scores))
@@ -138,17 +149,22 @@ class ParticleSwarmOptimizer:
         position_history = [global_best.copy()]
 
         for _ in range(cfg.iterations):
+            # STEP 6: update velocity using momentum, personal best, global best.
+            # global_best broadcasts from (D,) to (N, D) in the subtraction.
             r1, r2 = rng.random(shape), rng.random(shape)
             velocities = (cfg.inertia * velocities
                           + cfg.cognitive * r1 * (personal_best - positions)
                           + cfg.social * r2 * (global_best - positions))
             # Coordinate-wise limits matter: h has a much smaller range than W.
             velocities = np.clip(velocities, -vmax, vmax)
+            # STEP 7: move, then repair constraints before evaluating anything.
             proposed = positions + velocities
             positions = self._repair_positions(proposed)
             # A wall/ratio repair interrupts motion along changed coordinates.
             # Reset those velocities rather than repeatedly pushing outwards.
             velocities[positions != proposed] = 0.0
+            # STEP 8: score the new positions, update memories, save history.
+            # improved is a Boolean array (N,); only better particles replace pbest.
             scores = self._evaluate(positions)
             improved = scores < personal_scores
             personal_best[improved] = positions[improved].copy()
@@ -160,12 +176,14 @@ class ParticleSwarmOptimizer:
             score_history.append(global_score)
             position_history.append(global_best.copy())
 
+        # STEP 9: return the best EVER found, not just the final swarm position.
         return PSOResult(global_best, global_score, np.asarray(score_history),
                          np.asarray(position_history), cfg.swarm_size * (cfg.iterations + 1),
                          perf_counter() - started)
 
 
 def geometry_is_feasible(design_mm):
+    """STEP 2a: check RMA's bounds and ratio without evaluating its frequency."""
     design = np.asarray(design_mm, dtype=float)
     return bool(design.shape == (3,) and np.all(np.isfinite(design))
                 and np.all(design >= AntennaBounds_mm[:, 0])
@@ -174,23 +192,21 @@ def geometry_is_feasible(design_mm):
 
 
 def repair_antenna_design(design_mm):
-    """Project into the dimension bounds and W/L >= 1.2; return a copy."""
+    """STEP 2b: apply RMA's geometry repair rules without evaluating frequency."""
     design = np.array(design_mm, dtype=float, copy=True)
     if design.shape != (3,) or not np.all(np.isfinite(design)):
         raise ValueError("A design must contain three finite values [W, L, h].")
-    # W <= 50 and W >= 1.2 L imply L <= 50/1.2, tighter than the box's 45 mm.
     max_length = np.nextafter(50.0 / 1.2, -np.inf)
     design[1] = np.clip(design[1], 25.0, max_length)
     design[0] = np.clip(design[0], 1.2 * design[1], 50.0)
     design[2] = np.clip(design[2], 1.0, 5.0)
-    # Multiplication/division can round to opposite sides of the ratio limit.
     if design[0] / design[1] < 1.2:
         design[0] = np.nextafter(design[0], np.inf)
     return design
 
 
 def make_antenna_objective(predict_frequency, penalty_weight=1.0, target_GHz=2.4):
-    """Same objective form as the current PatchFormula.RMA.fitness:
+    """STEP 3: create objective(design_mm) -> score with RMA.fitness's formula.
 
         J = (W*L*h)/11250 + penalty_weight * abs(predicted_f_GHz - 2.4)
 
@@ -217,7 +233,7 @@ def make_antenna_objective(predict_frequency, penalty_weight=1.0, target_GHz=2.4
 
 
 def verify_design(design_mm, predict_frequency, tolerance_GHz=0.01, target_GHz=2.4):
-    """Called AFTER PSO. Separate target deviation from model prediction error."""
+    """STEP 10: AFTER PSO, compare RMA's analytical frequency with the prediction."""
     if not np.isfinite(tolerance_GHz) or tolerance_GHz < 0:
         raise ValueError("tolerance_GHz must be finite and nonnegative.")
     started = perf_counter()
@@ -227,7 +243,7 @@ def verify_design(design_mm, predict_frequency, tolerance_GHz=0.01, target_GHz=2
     antenna = RMA(*design_mm)
     actual = antenna.ResonanceF_GHz
     verification_seconds = perf_counter() - started
-    geometry_ok = geometry_is_feasible(design_mm)
+    geometry_ok = antenna.geometryCheck()
     target_error = abs(actual - target_GHz)
     return {"design_mm": np.asarray(design_mm).tolist(), "volume_mm3": antenna.volume_mm3,
             "predicted_frequency_GHz": predicted, "analytical_frequency_GHz": actual,

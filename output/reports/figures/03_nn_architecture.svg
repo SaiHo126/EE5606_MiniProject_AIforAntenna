@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="468pt" height="90pt" viewBox="0 0 468 90" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-18T17:57:56.134753</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 90 
+L 468 90 
+L 468 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 5.148 59.175 
+L 88.452 59.175 
+Q 89.622 59.175 89.622 58.05 
+L 89.622 22.95 
+Q 89.622 21.825 88.452 21.825 
+L 5.148 21.825 
+Q 3.978 21.825 3.978 22.95 
+L 3.978 58.05 
+Q 3.978 59.175 5.148 59.175 
+z
+" clip-path="url(#p7863ccfad3)" style="fill: #edf3f7; stroke: #245b88; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 110.448 59.175 
+L 198.432 59.175 
+Q 199.602 59.175 199.602 58.05 
+L 199.602 22.95 
+Q 199.602 21.825 198.432 21.825 
+L 110.448 21.825 
+Q 109.278 21.825 109.278 22.95 
+L 109.278 58.05 
+Q 109.278 59.175 110.448 59.175 
+z
+" clip-path="url(#p7863ccfad3)" style="fill: #edf3f7; stroke: #245b88; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 227.448 59.175 
+L 324.792 59.175 
+Q 325.962 59.175 325.962 58.05 
+L 325.962 22.95 
+Q 325.962 21.825 324.792 21.825 
+L 227.448 21.825 
+Q 226.278 21.825 226.278 22.95 
+L 226.278 58.05 
+Q 226.278 59.175 227.448 59.175 
+z
+" clip-path="url(#p7863ccfad3)" style="fill: #edf3f7; stroke: #245b88; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 356.148 59.175 
+L 453.492 59.175 
+Q 454.662 59.175 454.662 58.05 
+L 454.662 22.95 
+Q 454.662 21.825 453.492 21.825 
+L 356.148 21.825 
+Q 354.978 21.825 354.978 22.95 
+L 354.978 58.05 
+Q 354.978 59.175 356.148 59.175 
+z
+" clip-path="url(#p7863ccfad3)" style="fill: #edf3f7; stroke: #245b88; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(29.022188 37.010742)">W, L, h</text>
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(33.470625 49.731914)">(mm)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(126.118125 37.010742)">Standardize</text>
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(135.270938 49.731914)">3 inputs</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(258.289688 37.016836)">32 tanh</text>
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(257.123438 49.72582)">neurons</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(372.33 37.016836)">Linear output</text>
+    <text style="font-size: 12px; font-family: 'Times New Roman'" transform="translate(385.990313 49.72582)">→ GHz</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 91.856312 40.5 
+Q 99.449359 40.5 105.812569 40.5 
+" style="fill: none; stroke: #245b88; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 101.012569 38.1 
+L 105.812569 40.5 
+L 101.012569 42.9 
+" style="fill: none; stroke: #245b88; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 202.305511 40.5 
+Q 213.173578 40.5 222.811807 40.5 
+" style="fill: none; stroke: #245b88; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 218.011807 38.1 
+L 222.811807 40.5 
+L 218.011807 42.9 
+" style="fill: none; stroke: #245b88; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 328.662369 40.5 
+Q 340.701882 40.5 351.511557 40.5 
+" style="fill: none; stroke: #245b88; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 346.711557 38.1 
+L 351.511557 40.5 
+L 346.711557 42.9 
+" style="fill: none; stroke: #245b88; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'Times New Roman'; text-anchor: middle" x="234" y="81.9" transform="rotate(-0 234 81.9)">W₁: 32 × 3     b₁: 32 × 1     W₂: 1 × 32     b₂: 1 × 1     |     161 parameters</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7863ccfad3">
+   <rect x="0" y="0" width="468" height="90"/>
+  </clipPath>
+ </defs>
+</svg>

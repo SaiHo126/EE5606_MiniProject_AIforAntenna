@@ -1,0 +1,29 @@
+%% 03  Neural network | architecture
+%% NeuralNetwork.py · 3 inputs → 32 tanh neurons → 1 linear output · 161 parameters
+flowchart TB
+    input["Design input<br/>[W_mm, L_mm, h_mm]<br/>Public predict(): one design"]:::data
+    scale["Standardize inputs<br/>X_s = (X − X_mean) / X_std<br/>Training-set statistics only"]:::process
+    hidden["32-neuron hidden layer<br/>H = tanh(W_hidden X_sᵀ + B_hidden)<br/>H shape: (32, N)"]:::process
+    linear["1-neuron linear output<br/>Y_s = (W_output H + B_output)ᵀ<br/>Y_s shape: (N, 1)"]:::process
+    inverse["Undo target standardization<br/>Y_GHz = Y_s × Y_std + Y_mean<br/>Saved training-set statistics"]:::process
+    freq["Predicted resonance frequency<br/>predict() returns a float in GHz<br/>Used as a fixed PSO surrogate"]:::data
+    trainer["Training: fit()<br/>Training / validation split → standardized MSE<br/>Manual backward() → Strong Wolfe line search<br/>Restore weights from the best validation epoch"]:::process
+    weights["Trainable weights and biases<br/>W_hidden: (32, 3); B_hidden: (32, 1)<br/>W_output: (1, 32); B_output: (1, 1)<br/>96 + 32 + 32 + 1 = 161"]:::process
+    saved["save() / load(): NPZ weights, scaling, settings and training histories"]:::data
+    input --> scale
+    scale --> hidden
+    hidden --> linear
+    linear --> inverse
+    inverse --> freq
+    trainer -.->|"updates"| weights
+    weights -.-> linear
+    weights -.-> hidden
+    trainer --> saved
+    weights --> saved
+    classDef process fill:#edf3ff,stroke:#4267a8,color:#17344b
+    classDef data fill:#eaf6f3,stroke:#297b70,color:#17344b
+    classDef decision fill:#fff5dc,stroke:#aa791e,color:#17344b
+    classDef warning fill:#fff0e9,stroke:#b4532b,color:#17344b
+    classDef terminal fill:#17344b,stroke:#17344b,color:#ffffff
+%% N is the number of samples. forward() accepts standardized arrays (N, 3); predict() accepts a single raw-mm design.
+%% hiddenSize is configurable; 32 is the value in __main__. Array operations use CuPy if available, otherwise NumPy.

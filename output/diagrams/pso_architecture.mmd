@@ -1,0 +1,27 @@
+%% 05  Particle swarm | architecture
+%% PSO.py · intended surrogate integration; dashed links mark connections needing repair
+flowchart TB
+    models["Saved NN and GP models<br/>NeuralNetwork.load()<br/>GPRskeleton.GaussianProcessRegressor.load()"]:::data
+    driver["main() → compare_models()<br/>NN and GP; seeds 1–5<br/>Same bounds and score settings"]:::process
+    objective["make_objective()<br/>Volume + predicted-f penalty<br/>Calls model.predict(design)"]:::process
+    swarm["PSO class<br/>initialize_swarm() / evaluate()<br/>update_velocity() / move_particle()<br/>run(): personal and global bests"]:::process
+    repair["repair_design()<br/>Clip bounds and use<br/>RMA.geometryFix()<br/>Currently single-design only"]:::warning
+    result["PSO.Result<br/>Best design / score<br/>Position + score histories<br/>Evaluations + time"]:::data
+    verify["verify_results(design, model)<br/>Surrogate prediction vs analytical RMA<br/>Target error + prediction error<br/>Geometry and frequency tolerance"]:::data
+    report["Comparison outputs<br/>History CSVs<br/>comparison.json<br/>Success rate + time"]:::data
+    issues["Current integration blockers<br/>1. compare_models passes object instead of objective to PSO.<br/>2. initialize_swarm and move_particle pass (swarm_size, 3) arrays to a single-design repair.<br/>3. evaluate builds an object array from a generator; it never calls self.objective.<br/>4. Verification and saving sit outside the seed loop, so only the final seed would be recorded."]:::warning
+    models --> driver
+    driver --> objective
+    driver -->|"construct + run"| swarm
+    objective -.->|"objective callback"| swarm
+    swarm -.->|"repair"| repair
+    swarm --> result
+    result --> verify
+    verify --> report
+    classDef process fill:#edf3ff,stroke:#4267a8,color:#17344b
+    classDef data fill:#eaf6f3,stroke:#297b70,color:#17344b
+    classDef decision fill:#fff5dc,stroke:#aa791e,color:#17344b
+    classDef warning fill:#fff0e9,stroke:#b4532b,color:#17344b
+    classDef terminal fill:#17344b,stroke:#17344b,color:#ffffff
+%% Intended score: J = W·L·h / 11250 + λ |f_predicted − 2.4|. main() sets λ = 1 and analytical tolerance = 0.01 GHz.
+%% The network is fixed during search. Analytical target error and surrogate prediction error are separate quantities.
