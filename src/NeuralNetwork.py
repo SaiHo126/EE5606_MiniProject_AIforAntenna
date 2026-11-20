@@ -357,12 +357,17 @@ def plot_prediction_comparison(model, X_test_mm, output_path, sample_indices=Non
     if not np.all(np.isfinite(predicted)):
         raise ValueError("NN returned non-finite test predictions.")
     error_khz = (predicted - analytical) * 1e6
+    error_percent = 100 * (predicted - analytical) / analytical
+    mape = np.mean(np.abs(error_percent))
+    max_error_percent = np.max(np.abs(error_percent))
     rmse_khz = np.sqrt(np.mean(error_khz**2))
     mae_khz = np.mean(np.abs(error_khz))
     max_error_khz = np.max(np.abs(error_khz))
     print(f"Test RMSE against analytical formula: {rmse_khz:.3f} kHz")
     print(f"Test MAE against analytical formula: {mae_khz:.3f} kHz")
     print(f"Test maximum absolute error: {max_error_khz:.3f} kHz")
+    print(f"Test mean absolute percentage error (MAPE): {mape:.4f}%")
+    print(f"Test maximum absolute percentage error: {max_error_percent:.4f}%")
 
     # Sort both arrays together for a readable overlay. This is not a geometry sweep.
     order = np.argsort(analytical)
@@ -391,15 +396,20 @@ def plot_prediction_comparison(model, X_test_mm, output_path, sample_indices=Non
     # Keep the existing combined plot, plus separate figures for a report/slide.
     stem = output_path.stem.removesuffix("_comparison")
     difference_path = output_path.with_name(stem + "_difference.png")
-    difference_fig, difference_ax = plt.subplots(figsize=(9, 4.5))
+    difference_fig, (difference_ax, percent_ax) = plt.subplots(2, 1, figsize=(9, 7), sharex=True)
     difference_ax.plot(sample, error_khz[order], ".-", color="tab:blue", linewidth=1)
     difference_ax.axhline(0, color="black", linestyle="--", linewidth=1)
-    difference_ax.set_xlabel("Test design rank (sorted by analytical frequency)")
     difference_ax.set_ylabel("Predicted - actual frequency (kHz)")
     difference_ax.set_title(f"NN prediction error on {len(order)} held-out test designs\n"
                             f"RMSE = {rmse_khz:.3f} kHz; MAE = {mae_khz:.3f} kHz; "
                             f"Max |error| = {max_error_khz:.3f} kHz")
     difference_ax.grid(True, alpha=0.3)
+    percent_ax.plot(sample, error_percent[order], ".-", color="tab:orange", linewidth=1)
+    percent_ax.axhline(0, color="black", linestyle="--", linewidth=1)
+    percent_ax.set_xlabel("Test design rank (sorted by analytical frequency)")
+    percent_ax.set_ylabel("Prediction error (%)")
+    percent_ax.set_title(f"MAPE = {mape:.4f}%; Max |percentage error| = {max_error_percent:.4f}%")
+    percent_ax.grid(True, alpha=0.3)
     difference_fig.text(0.5, 0.02,
                         "Actual = analytical formula. Positive error means the NN overpredicts frequency.",
                         ha="center", fontsize=9)
@@ -425,8 +435,8 @@ def plot_prediction_comparison(model, X_test_mm, output_path, sample_indices=Non
     # Preserve original test order in the CSV so predictions remain traceable.
     csv_path = output_path.with_name(stem + "_test_predictions.csv")
     np.savetxt(csv_path,
-               np.column_stack([sample_indices, X_test_mm, analytical, predicted, error_khz]),
-               delimiter=",", header="sample_index,W_mm,L_mm,h_mm,actual_GHz,predicted_GHz,error_kHz",
+               np.column_stack([sample_indices, X_test_mm, analytical, predicted, error_khz, error_percent]),
+               delimiter=",", header="sample_index,W_mm,L_mm,h_mm,actual_GHz,predicted_GHz,error_kHz,error_percent",
                comments="")
     metrics = {
         "evaluation_set": "held-out test set",
@@ -436,6 +446,8 @@ def plot_prediction_comparison(model, X_test_mm, output_path, sample_indices=Non
         "mae_kHz": float(mae_khz),
         "max_absolute_error_kHz": float(max_error_khz),
         "mean_signed_error_kHz": float(np.mean(error_khz)),
+        "mean_absolute_percentage_error": float(mape),
+        "max_absolute_percentage_error": float(max_error_percent),
     }
     metrics_path = output_path.with_name(stem + "_test_metrics.json")
     metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
@@ -477,7 +489,7 @@ if __name__ == "__main__":
     fit_start = perf_counter()
     # Slides 44-48: strong Wolfe line search selects alpha from an initial trial of 1.
     # Full-batch gradients and trial losses use the same 420 training samples.
-    history = model.fit(dataTrain=dataTrain,dataValidation=dataValidation,learning_rate=1.0,epochs=50000,verbose=True)
+    history = model.fit(dataTrain=dataTrain,dataValidation=dataValidation,learning_rate=1.0,epochs=100000,verbose=True)
     if xp is not np:
         xp.cuda.get_current_stream().synchronize()  # Finish GPU work before timing.
     fit_time = perf_counter() - fit_start

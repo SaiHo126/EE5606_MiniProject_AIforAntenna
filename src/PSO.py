@@ -4,9 +4,14 @@ import json
 from pathlib import Path
 from time import perf_counter
 
-from GPRskeleton import GaussianProcessRegressor
-from NeuralNetwork import NeuralNetwork as NeuralNetwork
-from PatchFormula import RMA, AntennaBounds_mm
+if __package__:
+    from .GPRskeleton import GaussianProcessRegressor
+    from .NeuralNetwork import NeuralNetwork
+    from .PatchFormula import RMA, AntennaBounds_mm
+else:
+    from GPRskeleton import GaussianProcessRegressor
+    from NeuralNetwork import NeuralNetwork
+    from PatchFormula import RMA, AntennaBounds_mm
 from dataclasses import dataclass, asdict
 import numpy as np
 
@@ -29,6 +34,7 @@ class PSO:
         best_position_history : np.ndarray
         best_score: float
         best_score_history: np.ndarray
+        elapsed_seconds_history: np.ndarray
         objective_evaluations: int
         search_seconds:float
     
@@ -47,21 +53,19 @@ class PSO:
         )
     @staticmethod
     def repair_design(design):
-        # Ensure positive dimensions before constructing RMA.
+        # Repair dimensions without evaluating analytical frequency during PSO.
         design = np.clip(
             np.asarray(design, dtype=float),
             AntennaBounds_mm[:, 0],
             AntennaBounds_mm[:, 1],
         )
 
-        antenna = RMA(*design)
-        antenna.geometryFix()
-
-        return np.array([
-            antenna.width_mm,
-            antenna.length_mm,
-            antenna.thickness_mm,
-        ])        
+        if design[0] / design[1] < 1.2:
+            design[1] = min(design[1], np.nextafter(50.0 / 1.2, -np.inf))
+            design[0] = max(design[0], 1.2 * design[1])
+            if design[0] / design[1] < 1.2:
+                design[0] = np.nextafter(design[0], np.inf)
+        return design
     def initialize_swarm(self, rng):
         shape = (self.Config.swarm_size, len(self.lower))
         positions = rng.uniform(self.lower, self.upper, size=shape)
@@ -106,6 +110,8 @@ class PSO:
         # Lists can grow using append().
         score_history = [global_score]
         position_history = [global_best.copy()]
+        # Index 0 includes initialization and the first swarm evaluation.
+        elapsed_history = [perf_counter() - started]
 
         iteration = 0
         fitness_change = float("inf")
@@ -150,6 +156,7 @@ class PSO:
             )
 
             iteration += 1
+            elapsed_history.append(perf_counter() - started)
 
         # 8. Return an instance containing this run's results.
         return self.Result(
@@ -157,6 +164,7 @@ class PSO:
             best_position_history=np.array(position_history),
             best_score=global_score,
             best_score_history=np.array(score_history),
+            elapsed_seconds_history=np.array(elapsed_history),
             objective_evaluations=(self.Config.swarm_size * (iteration + 1)),
             search_seconds=perf_counter() - started,
         )
@@ -211,6 +219,7 @@ def compare_models(nn, gp, penalty_weight, frequency_tolerance_GHz, output_dir):
         "frequency_tolerance_GHz": frequency_tolerance_GHz,
         "target_GHz": 2.4,
         "objective": "volume_mm3/11250 + penalty_weight*abs(predicted_GHz-2.4)",
+        "timing_scope": "PSO initialization and search, including surrogate predictions and geometry repair; excludes model loading, training, plotting, and final verification.",
         "runs": [],
         "summary": {},
     }
@@ -255,18 +264,19 @@ def compare_models(nn, gp, penalty_weight, frequency_tolerance_GHz, output_dir):
             model_runs.append(row)
 
             # 6. Save convergence history for this model and seed.
-            # Each row: iteration, best score, best W, best L, best h.
+            # Measured elapsed time accompanies each recorded best score.
             history = np.column_stack([
                 np.arange(len(result.best_score_history)),
                 result.best_score_history,
                 result.best_position_history,
+                result.elapsed_seconds_history,
             ])
 
             np.savetxt(
                 output_dir / f"{name}_seed_{seed}_history.csv",
                 history,
                 delimiter=",",
-                header="iteration,best_score,W_mm,L_mm,h_mm",
+                header="iteration,best_score,W_mm,L_mm,h_mm,elapsed_seconds",
                 comments="",
             )
 
@@ -275,6 +285,7 @@ def compare_models(nn, gp, penalty_weight, frequency_tolerance_GHz, output_dir):
                 f"volume={checked['volume_mm3']:.3f} mm^3, "
                 f"target error={checked['target_error_MHz']:.3f} MHz, "
                 f"prediction error={checked['prediction_error_MHz']:.3f} MHz, "
+                f"search time={result.search_seconds:.4f} s, "
                 f"success={checked['success']}"
             )
 
@@ -288,6 +299,9 @@ def compare_models(nn, gp, penalty_weight, frequency_tolerance_GHz, output_dir):
             "successes": len(successful_runs),
             "success_rate": len(successful_runs) / len(model_runs),
             "mean_search_seconds": float(np.mean([
+                row["search_seconds"] for row in model_runs
+            ])),
+            "std_search_seconds": float(np.std([
                 row["search_seconds"] for row in model_runs
             ])),
             "mean_target_error_MHz": float(np.mean([
@@ -305,7 +319,8 @@ def compare_models(nn, gp, penalty_weight, frequency_tolerance_GHz, output_dir):
 
         print(
             f"{name} success rate: "
-            f"{summary['successes']}/{summary['runs']}"
+            f"{summary['successes']}/{summary['runs']}; "
+            f"mean search time={summary['mean_search_seconds']:.4f} s"
         )
 
     # 8. Save the complete comparison.
@@ -314,8 +329,47 @@ def compare_models(nn, gp, penalty_weight, frequency_tolerance_GHz, output_dir):
         json.dumps(report, indent=2),
         encoding="utf-8",
     )
+    plot_convergence(report, output_dir)
+    return report
 
-def main():
+
+def plot_convergence(report, output_dir):
+    """Plot every seed using its measured timestamps, not estimated timings."""
+    import matplotlib.pyplot as plt
+
+    output_dir = Path(output_dir)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), sharey=True)
+    for name, color in (("NN", "tab:blue"), ("GP", "tab:orange")):
+        runs = [row for row in report["runs"] if row["model"] == name]
+        summary = report["summary"][name]
+        label = (f"{name}: mean {summary['mean_search_seconds']:.3f} s "
+                 f"({len(runs)} seeds)")
+        for index, row in enumerate(runs):
+            history = np.genfromtxt(output_dir / f"{name}_seed_{row['seed']}_history.csv",
+                                    delimiter=",", names=True, ndmin=1)
+            for ax, x in zip(axes, (history["iteration"], history["elapsed_seconds"])):
+                ax.step(x, history["best_score"], where="post", color=color,
+                        alpha=0.65, linewidth=1.2, label=label if index == 0 else None)
+    axes[0].set_xlabel("PSO iteration (0 = initial swarm)")
+    axes[0].set_ylabel("Best surrogate objective so far (lower is better)")
+    axes[0].set_title("Convergence by iteration")
+    axes[1].set_xlabel("Measured elapsed search time (s)")
+    axes[1].set_title("Convergence by elapsed time")
+    for ax in axes:
+        ax.grid(True, alpha=0.3)
+        ax.legend(fontsize=9)
+    fig.suptitle("NN vs GP: PSO convergence with fixed trained surrogates")
+    fig.text(0.5, 0.02,
+             "Each line is one seed. Time includes initialization, surrogate predictions, and particle updates.\n"
+             "Model loading/training, plotting, and final analytical verification are excluded.",
+             ha="center", fontsize=9)
+    fig.tight_layout(rect=(0, 0.09, 1, 0.96))
+    path = output_dir / "convergence_comparison.png"
+    fig.savefig(path, dpi=200)
+    print(f"Saved convergence plot: {path}")
+    return fig
+
+def main(argv=None):
     # Find the project root from this file's location.
     project_root = Path(__file__).resolve().parents[1]
 
@@ -323,7 +377,12 @@ def main():
     nn_path = project_root / "results/nn/nn_model_line_search.npz"
     gp_path = project_root / "results/gp/gp_model.npz"
 
-    output_dir = project_root / "results/pso_comparison_cpu"
+    parser = argparse.ArgumentParser(description="Compare NN and GP PSO convergence and measured search time.")
+    parser.add_argument("--output-dir", type=Path,
+                        default=project_root / "results/pso_comparison_cpu")
+    parser.add_argument("--no-show", action="store_true", help="Save plots without opening a window.")
+    args = parser.parse_args(argv)
+    output_dir = args.output_dir
 
     # Experiment settings—use the same values for NN and GP.
     penalty_weight = 1.0
@@ -351,6 +410,9 @@ def main():
     )
 
     print(f"Comparison completed. Results saved in: {output_dir}")
+    if not args.no_show:
+        import matplotlib.pyplot as plt
+        plt.show()
 
 
 if __name__ == "__main__":

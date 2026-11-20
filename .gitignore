@@ -1,4 +1,6 @@
 .venv/
+virtual/
+virtual environment/
 __pycache__/
 *.py[cod]
 .pytest_cache/

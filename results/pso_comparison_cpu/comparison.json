@@ -3,6 +3,7 @@
   "frequency_tolerance_GHz": 0.01,
   "target_GHz": 2.4,
   "objective": "volume_mm3/11250 + penalty_weight*abs(predicted_GHz-2.4)",
+  "timing_scope": "PSO initialization and search, including surrogate predictions and geometry repair; excludes model loading, training, plotting, and final verification.",
   "runs": [
     {
       "model": "NN",
@@ -19,23 +20,23 @@
         "velocity_fraction": 0.2
       },
       "iterations_completed": 150,
-      "best_score": 0.09400960798607215,
+      "best_score": 0.094019870821873,
       "objective_evaluations": 6040,
-      "search_seconds": 0.13950929999919026,
+      "search_seconds": 0.07679490000009537,
       "design_mm": [
-        35.62484677587717,
-        29.687372313230973,
+        35.62679126849106,
+        29.68899272374255,
         1.0
       ],
-      "volume_mm3": 1057.6080898372716,
-      "predicted_GHz": 2.400000000000537,
-      "analytical_GHz": 2.3992321881416014,
-      "target_error_MHz": 0.7678118583984705,
-      "prediction_error_MHz": 0.7678118589353744,
+      "volume_mm3": 1057.7235467405258,
+      "predicted_GHz": 2.400000000000493,
+      "analytical_GHz": 2.399102264311159,
+      "target_error_MHz": 0.8977356888411059,
+      "prediction_error_MHz": 0.8977356893340449,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 6.7999990278622136e-06,
-      "analytical_verification_seconds": 2.999999196617864e-06
+      "final_prediction_seconds": 9.500421583652496e-06,
+      "analytical_verification_seconds": 2.3600179702043533e-05
     },
     {
       "model": "NN",
@@ -52,23 +53,23 @@
         "velocity_fraction": 0.2
       },
       "iterations_completed": 150,
-      "best_score": 0.09400960799509896,
+      "best_score": 0.09401987082142295,
       "objective_evaluations": 6040,
-      "search_seconds": 0.13754969999899913,
+      "search_seconds": 0.07615710003301501,
       "design_mm": [
-        35.624846776016135,
-        29.68737231334678,
+        35.626791268498344,
+        29.688992723748623,
         1.0
       ],
-      "volume_mm3": 1057.6080898455227,
-      "predicted_GHz": 2.3999999999911696,
-      "analytical_GHz": 2.3992321881323155,
-      "target_error_MHz": 0.7678118676843759,
-      "prediction_error_MHz": 0.7678118588541061,
+      "volume_mm3": 1057.7235467409582,
+      "predicted_GHz": 2.4000000000000044,
+      "analytical_GHz": 2.3991022643106716,
+      "target_error_MHz": 0.8977356893282717,
+      "prediction_error_MHz": 0.8977356893327126,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 7.2999991971300915e-06,
-      "analytical_verification_seconds": 3.1000017770566046e-06
+      "final_prediction_seconds": 9.09995287656784e-06,
+      "analytical_verification_seconds": 1.1399853974580765e-05
     },
     {
       "model": "NN",
@@ -85,23 +86,23 @@
         "velocity_fraction": 0.2
       },
       "iterations_completed": 150,
-      "best_score": 0.0940096079864665,
+      "best_score": 0.09401987082230892,
       "objective_evaluations": 6040,
-      "search_seconds": 0.13459270000021206,
+      "search_seconds": 0.07752399984747171,
       "design_mm": [
-        35.62484677589736,
-        29.687372313247803,
+        35.62679126883784,
+        29.688992723740704,
         1.0
       ],
-      "volume_mm3": 1057.6080898384705,
-      "predicted_GHz": 2.3999999999991752,
-      "analytical_GHz": 2.3992321881402523,
-      "target_error_MHz": 0.7678118597476136,
-      "prediction_error_MHz": 0.7678118589229399,
+      "volume_mm3": 1057.7235467507555,
+      "predicted_GHz": 2.3999999999999804,
+      "analytical_GHz": 2.399102264310778,
+      "target_error_MHz": 0.8977356892216903,
+      "prediction_error_MHz": 0.8977356892021504,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 6.399999620043673e-06,
-      "analytical_verification_seconds": 2.800001311697997e-06
+      "final_prediction_seconds": 8.999835699796677e-06,
+      "analytical_verification_seconds": 1.1899974197149277e-05
     },
     {
       "model": "NN",
@@ -118,23 +119,23 @@
         "velocity_fraction": 0.2
       },
       "iterations_completed": 150,
-      "best_score": 0.0940096079860619,
+      "best_score": 0.09401987082174906,
       "objective_evaluations": 6040,
-      "search_seconds": 0.14632870000059484,
+      "search_seconds": 0.07501329993829131,
       "design_mm": [
-        35.62484677587733,
-        29.68737231323111,
+        35.62679126849307,
+        29.688992723744228,
         1.0
       ],
-      "volume_mm3": 1057.608089837281,
-      "predicted_GHz": 2.4000000000005257,
-      "analytical_GHz": 2.3992321881415917,
-      "target_error_MHz": 0.7678118584082405,
-      "prediction_error_MHz": 0.7678118589340421,
+      "volume_mm3": 1057.7235467406451,
+      "predicted_GHz": 2.4000000000003583,
+      "analytical_GHz": 2.399102264311024,
+      "target_error_MHz": 0.897735688976109,
+      "prediction_error_MHz": 0.897735689334489,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 7.300001016119495e-06,
-      "analytical_verification_seconds": 3.5000011848751456e-06
+      "final_prediction_seconds": 1.0400079190731049e-05,
+      "analytical_verification_seconds": 1.12997367978096e-05
     },
     {
       "model": "NN",
@@ -151,23 +152,23 @@
         "velocity_fraction": 0.2
       },
       "iterations_completed": 150,
-      "best_score": 0.0940096079891952,
+      "best_score": 0.09401987082151853,
       "objective_evaluations": 6040,
-      "search_seconds": 0.15261020000070857,
+      "search_seconds": 0.07761469995602965,
       "design_mm": [
-        35.62484677582689,
-        29.687372313189076,
+        35.626791268499794,
+        29.688992723749827,
         1.0
       ],
-      "volume_mm3": 1057.6080898342864,
-      "predicted_GHz": 2.400000000003925,
-      "analytical_GHz": 2.399232188144962,
-      "target_error_MHz": 0.7678118550380475,
-      "prediction_error_MHz": 0.767811858963352,
+      "volume_mm3": 1057.7235467410442,
+      "predicted_GHz": 2.3999999999999075,
+      "analytical_GHz": 2.3991022643105753,
+      "target_error_MHz": 0.8977356894246391,
+      "prediction_error_MHz": 0.8977356893322685,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 7.0000005507608876e-06,
-      "analytical_verification_seconds": 3.499999365885742e-06
+      "final_prediction_seconds": 9.199604392051697e-06,
+      "analytical_verification_seconds": 1.1699739843606949e-05
     },
     {
       "model": "GP",
@@ -186,7 +187,7 @@
       "iterations_completed": 150,
       "best_score": 0.09395024499791012,
       "objective_evaluations": 6040,
-      "search_seconds": 0.270624199998565,
+      "search_seconds": 0.3523162002675235,
       "design_mm": [
         35.613597227104655,
         29.677997689253882,
@@ -199,8 +200,8 @@
       "prediction_error_MHz": 0.015883021344809123,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 3.380000089237001e-05,
-      "analytical_verification_seconds": 7.3999999585794285e-06
+      "final_prediction_seconds": 6.730016320943832e-05,
+      "analytical_verification_seconds": 1.1899974197149277e-05
     },
     {
       "model": "GP",
@@ -219,7 +220,7 @@
       "iterations_completed": 150,
       "best_score": 0.09395024500472395,
       "objective_evaluations": 6040,
-      "search_seconds": 0.2690231999986281,
+      "search_seconds": 0.3316359999589622,
       "design_mm": [
         35.61359722851639,
         29.677997690430328,
@@ -232,8 +233,8 @@
       "prediction_error_MHz": 0.01588311380018581,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 3.380000089237001e-05,
-      "analytical_verification_seconds": 4.100000296602957e-06
+      "final_prediction_seconds": 5.829986184835434e-05,
+      "analytical_verification_seconds": 1.1300202459096909e-05
     },
     {
       "model": "GP",
@@ -252,7 +253,7 @@
       "iterations_completed": 150,
       "best_score": 0.09395024500603277,
       "objective_evaluations": 6040,
-      "search_seconds": 0.26028059999953257,
+      "search_seconds": 0.31647610012441874,
       "design_mm": [
         35.613597228764455,
         29.67799769063705,
@@ -265,8 +266,8 @@
       "prediction_error_MHz": 0.01588313038602962,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 3.070000093430281e-05,
-      "analytical_verification_seconds": 3.600000127335079e-06
+      "final_prediction_seconds": 6.280001252889633e-05,
+      "analytical_verification_seconds": 7.649976760149002e-05
     },
     {
       "model": "GP",
@@ -285,7 +286,7 @@
       "iterations_completed": 150,
       "best_score": 0.09395024500258745,
       "objective_evaluations": 6040,
-      "search_seconds": 0.26918599999953585,
+      "search_seconds": 0.3020637002773583,
       "design_mm": [
         35.61359722799117,
         29.677997689992644,
@@ -298,8 +299,8 @@
       "prediction_error_MHz": 0.01588308061784005,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 3.189999915775843e-05,
-      "analytical_verification_seconds": 5.099998816149309e-06
+      "final_prediction_seconds": 5.079992115497589e-05,
+      "analytical_verification_seconds": 1.200009137392044e-05
     },
     {
       "model": "GP",
@@ -318,7 +319,7 @@
       "iterations_completed": 150,
       "best_score": 0.09395024501064765,
       "objective_evaluations": 6040,
-      "search_seconds": 0.2713923999999679,
+      "search_seconds": 0.31844040006399155,
       "design_mm": [
         35.613597228968466,
         29.677997690807057,
@@ -331,8 +332,8 @@
       "prediction_error_MHz": 0.015883148866802088,
       "geometry_feasible": true,
       "success": true,
-      "final_prediction_seconds": 3.420000030018855e-05,
-      "analytical_verification_seconds": 4.699999408330768e-06
+      "final_prediction_seconds": 5.5999960750341415e-05,
+      "analytical_verification_seconds": 1.3699755072593689e-05
     }
   ],
   "summary": {
@@ -340,15 +341,17 @@
       "runs": 5,
       "successes": 5,
       "success_rate": 1.0,
-      "mean_search_seconds": 0.14211811999994098,
-      "mean_target_error_MHz": 0.7678118598553496,
-      "mean_successful_volume_mm3": 1057.6080898385665
+      "mean_search_seconds": 0.07662079995498061,
+      "std_search_seconds": 0.0009625998135130911,
+      "mean_target_error_MHz": 0.8977356891583632,
+      "mean_successful_volume_mm3": 1057.7235467427859
     },
     "GP": {
       "runs": 5,
       "successes": 5,
       "success_rate": 1.0,
-      "mean_search_seconds": 0.2681012799992459,
+      "mean_search_seconds": 0.32418648013845086,
+      "std_search_seconds": 0.016903616684374942,
       "mean_target_error_MHz": 0.015883097911473243,
       "mean_successful_volume_mm3": 1056.9402562811429
     }
